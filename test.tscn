@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bi16iyfo3yx4e"]
+
+[ext_resource type="Script" path="res://UvSphere.gd" id="3_g7t4r"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_x20ug"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_du5ml"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.796952, 0, 0.604043, 0, 1, 0, -0.604043, 0, 0.796952, 0, 0, 2.11431)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CapsuleMesh_x20ug")
+skeleton = NodePath("../Camera3D")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.91706)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = SubResource("ArrayMesh_du5ml")
+skeleton = NodePath("")
+script = ExtResource("3_g7t4r")
