@@ -31,7 +31,7 @@ skeleton = NodePath("../Camera3D")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.91706)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+[node name="Planet" type="MeshInstance3D" parent="."]
 material_override = SubResource("ShaderMaterial_cmlmp")
 mesh = SubResource("SphereMesh_hk8ae")
 skeleton = NodePath("")
