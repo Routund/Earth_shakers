@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://kl0jp7lkadag"]
-
-[ext_resource type="PackedScene" uid="uid://bdm78xyglbaaf" path="res://ico_sphere.glb" id="1_deoat"]
-
-[node name="ico_sphere" instance=ExtResource("1_deoat")]

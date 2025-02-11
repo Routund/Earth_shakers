@@ -27,7 +27,6 @@ func add_impact(impact_site : Vector3):
 		impact_image.set_pixel(i,0,Color(impact_points[i][0].x/2 + 0.5,impact_points[i][0].y/2 + 0.5,impact_points[i][0].z/2 + 0.5,impact_points[i][1]/1000))
 	material_override.set("shader_parameter/impact_data",ImageTexture.create_from_image(impact_image))
 	material_override.set("shader_parameter/num_impacts",len(impact_points))
-	impact_image.save_png("res://impact_img.png")
 
 func _process(delta : float) -> void:
 	k+=delta  
