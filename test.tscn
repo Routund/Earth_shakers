@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bi16iyfo3yx4e"]
+[gd_scene load_steps=8 format=3 uid="uid://bi16iyfo3yx4e"]
 
 [ext_resource type="Shader" path="res://planet_wave.gdshader" id="1_rjkxh"]
 [ext_resource type="Texture2D" uid="uid://c32fklymv733n" path="res://impact_img.png" id="2_bw1wi"]
 [ext_resource type="Script" path="res://UvSphere.gd" id="3_g7t4r"]
+[ext_resource type="PackedScene" uid="uid://c0kocto7n68b" path="res://player.tscn" id="4_spaj6"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x20ug"]
 
@@ -23,13 +24,13 @@ transform = Transform3D(0.796952, 0, 0.604043, 0, 1, 0, -0.604043, 0, 0.796952, 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
 visible = false
 mesh = SubResource("CapsuleMesh_x20ug")
-skeleton = NodePath("../Camera3D")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.91706)
+skeleton = NodePath("")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 material_override = SubResource("ShaderMaterial_cmlmp")
 mesh = SubResource("ArrayMesh_du5ml")
 skeleton = NodePath("")
 script = ExtResource("3_g7t4r")
+
+[node name="player" parent="." instance=ExtResource("4_spaj6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 788.719, 50.3452, -39)
