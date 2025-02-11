@@ -5,7 +5,7 @@ uniform int num_impacts;
 uniform float radius;
 
 const float e = 2.718281;
-const float dampening = 1.8;
+const float dampening = 2.0;
 const float phase_shift = PI/4.0;
 const float frequency = 15.0;
 const float height = 0.1;

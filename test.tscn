@@ -10,7 +10,7 @@
 render_priority = 0
 shader = ExtResource("1_rjkxh")
 shader_parameter/num_impacts = 1
-shader_parameter/radius = 1.5
+shader_parameter/radius = 1.0
 shader_parameter/impact_data = ExtResource("2_bw1wi")
 
 [sub_resource type="SphereMesh" id="SphereMesh_hk8ae"]

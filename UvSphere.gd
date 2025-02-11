@@ -35,15 +35,14 @@ func _process(delta : float) -> void:
 		add_impact(Vector3(randf()- 0.5,randf() - 0.5,randf()-0.5).normalized())
 		if len(impact_points)==100:
 			impact_points.pop_at(0)
-
 	
 	if Input.is_action_pressed("left"):
 		rotation.y -= 0.02
 	elif Input.is_action_pressed("right"):
 		rotation.y += 0.02
 
-func recalculate_positions():
-	pass
+#func recalculate_positions():
+	#pass
 	#if len(impact_points) != 0:
 		#for i in range(len(verts)):
 			#var vec_normal : Vector3 = verts[i].normalized()
