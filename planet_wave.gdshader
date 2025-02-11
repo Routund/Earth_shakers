@@ -8,6 +8,7 @@ const float e = 2.718281;
 const float dampening = 1.8;
 const float phase_shift = PI/4.0;
 const float frequency = 15.0;
+const float height = 0.1;
 
 
 void vertex() {
@@ -20,11 +21,11 @@ void vertex() {
 		impact_point.xyz = (impact_point.xyz - vec3(0.5,0.5,0.5)) * 2.0;
 		float angle = acos(dot(vec_normal,impact_point.xyz));
 		float x = max(0,abs(angle - TIME + impact_point.a * 1000.0));
-		additive -= 0.1 * pow(e,-dampening * x) * (cos(frequency * x + phase_shift) + sin(frequency*x + phase_shift));
+		additive -= height * pow(e,-dampening * x) * (cos(frequency * x + phase_shift) + sin(frequency*x + phase_shift));
 		i+=1;
 	}
 
-	VERTEX = vec_normal * (radius + additive);
+	VERTEX = vec_normal * (length(VERTEX) + additive);
 }
 
 void fragment() {
