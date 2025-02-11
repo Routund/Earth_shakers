@@ -10,10 +10,12 @@
 render_priority = 0
 shader = ExtResource("1_rjkxh")
 shader_parameter/num_impacts = 1
-shader_parameter/radius = 1.5
+shader_parameter/radius = 1.0
 shader_parameter/impact_data = ExtResource("2_bw1wi")
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_du5ml"]
+[sub_resource type="SphereMesh" id="SphereMesh_qk2dh"]
+radial_segments = 75
+rings = 75
 
 [node name="Node3D" type="Node3D"]
 
@@ -30,6 +32,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.91706)
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 material_override = SubResource("ShaderMaterial_cmlmp")
-mesh = SubResource("ArrayMesh_du5ml")
+mesh = SubResource("SphereMesh_qk2dh")
 skeleton = NodePath("")
 script = ExtResource("3_g7t4r")
