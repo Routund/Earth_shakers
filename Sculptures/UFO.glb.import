@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bdm78xyglbaaf"
-path="res://.godot/imported/ico_sphere.glb-840e4eee71023a9a6781a0a9e7fbec1b.scn"
+uid="uid://cnjb7mb2dxn31"
+path="res://.godot/imported/UFO.glb-cc6b02713f8c2fa1cd21b05f9baebd07.scn"
 
 [deps]
 
-source_file="res://ico_sphere.glb"
-dest_files=["res://.godot/imported/ico_sphere.glb-840e4eee71023a9a6781a0a9e7fbec1b.scn"]
+source_file="res://Sculptures/UFO.glb"
+dest_files=["res://.godot/imported/UFO.glb-cc6b02713f8c2fa1cd21b05f9baebd07.scn"]
 
 [params]
 

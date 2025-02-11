@@ -1,17 +1,16 @@
 [gd_scene load_steps=7 format=3 uid="uid://bi16iyfo3yx4e"]
 
-[ext_resource type="Shader" path="res://planet_wave.gdshader" id="1_rjkxh"]
-[ext_resource type="Texture2D" uid="uid://c32fklymv733n" path="res://impact_img.png" id="2_bw1wi"]
-[ext_resource type="Script" path="res://UvSphere.gd" id="3_g7t4r"]
+[ext_resource type="Shader" path="res://Shaders/planet_wave.gdshader" id="1_nw1d7"]
+[ext_resource type="Script" path="res://UvSphere.gd" id="3_08ukf"]
+[ext_resource type="PackedScene" uid="uid://cnjb7mb2dxn31" path="res://Sculptures/UFO.glb" id="4_luwtk"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x20ug"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cmlmp"]
 render_priority = 0
-shader = ExtResource("1_rjkxh")
-shader_parameter/num_impacts = 1
+shader = ExtResource("1_nw1d7")
+shader_parameter/num_impacts = 0
 shader_parameter/radius = 1.0
-shader_parameter/impact_data = ExtResource("2_bw1wi")
 
 [sub_resource type="SphereMesh" id="SphereMesh_hk8ae"]
 radius = 2.0
@@ -36,4 +35,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.91706)
 material_override = SubResource("ShaderMaterial_cmlmp")
 mesh = SubResource("SphereMesh_hk8ae")
 skeleton = NodePath("")
-script = ExtResource("3_g7t4r")
+script = ExtResource("3_08ukf")
+
+[node name="UFO" parent="." instance=ExtResource("4_luwtk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.00284, -4.76837e-07, 0.359719)
