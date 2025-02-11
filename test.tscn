@@ -1,8 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://bi16iyfo3yx4e"]
+[gd_scene load_steps=7 format=3 uid="uid://bi16iyfo3yx4e"]
 
+[ext_resource type="Shader" path="res://planet_wave.gdshader" id="1_rjkxh"]
+[ext_resource type="Texture2D" uid="uid://c32fklymv733n" path="res://impact_img.png" id="2_bw1wi"]
 [ext_resource type="Script" path="res://UvSphere.gd" id="3_g7t4r"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x20ug"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cmlmp"]
+render_priority = 0
+shader = ExtResource("1_rjkxh")
+shader_parameter/num_impacts = 1
+shader_parameter/radius = 1.5
+shader_parameter/impact_data = ExtResource("2_bw1wi")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_du5ml"]
 
@@ -20,6 +29,7 @@ skeleton = NodePath("../Camera3D")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.91706)
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_cmlmp")
 mesh = SubResource("ArrayMesh_du5ml")
 skeleton = NodePath("")
 script = ExtResource("3_g7t4r")
