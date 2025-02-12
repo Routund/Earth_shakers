@@ -15,3 +15,7 @@ shape = SubResource("SphereShape3D_pe1jp")
 visible = false
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.841788, 0)
+
+[node name="Camera3D" type="Camera3D" parent="head"]
