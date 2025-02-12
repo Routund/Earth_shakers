@@ -30,7 +30,7 @@ func add_impact(impact_site : Vector3):
 
 func _process(delta : float) -> void:
 	k+=delta  
-	if Input.is_action_pressed("jump"):
+	if Input.is_action_just_pressed("jump"):
 		add_impact(Vector3(randf()- 0.5,randf() - 0.5,randf()-0.5).normalized())
 		if len(impact_points)==100:
 			impact_points.pop_at(0)
