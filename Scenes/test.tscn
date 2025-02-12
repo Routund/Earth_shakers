@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bi16iyfo3yx4e"]
+[gd_scene load_steps=9 format=3 uid="uid://bi16iyfo3yx4e"]
 
 [ext_resource type="Shader" path="res://Shaders/planet_wave.gdshader" id="1_nw1d7"]
 [ext_resource type="Script" path="res://UvSphere.gd" id="3_08ukf"]
 [ext_resource type="PackedScene" uid="uid://cnjb7mb2dxn31" path="res://Sculptures/UFO.glb" id="4_luwtk"]
+[ext_resource type="PackedScene" uid="uid://cdq77svver7c0" path="res://Scenes/player.tscn" id="4_n1flc"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x20ug"]
 
@@ -18,6 +19,9 @@ height = 4.0
 radial_segments = 75
 rings = 75
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_mgivc"]
+radius = 2.35768
+
 [node name="Node3D" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -26,10 +30,7 @@ transform = Transform3D(0.796952, 0, 0.604043, 0, 1, 0, -0.604043, 0, 0.796952, 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
 visible = false
 mesh = SubResource("CapsuleMesh_x20ug")
-skeleton = NodePath("../Camera3D")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.91706)
+skeleton = NodePath("")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 material_override = SubResource("ShaderMaterial_cmlmp")
@@ -39,3 +40,12 @@ script = ExtResource("3_08ukf")
 
 [node name="UFO" parent="." instance=ExtResource("4_luwtk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.00284, -4.76837e-07, 0.359719)
+
+[node name="player" parent="." instance=ExtResource("4_n1flc")]
+transform = Transform3D(1, 0, 0, 0, -0.175813, 0.984424, 0, -0.984424, -0.175813, 0.623209, 3.4577, -0.33631)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.990677, -0.136234, 0, 0.136234, 0.990677, 0, 0.0117832, -0.0666067)
+shape = SubResource("SphereShape3D_mgivc")
