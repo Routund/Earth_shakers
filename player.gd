@@ -5,11 +5,9 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 func _physics_process(delta: float) -> void:
-	var mouse_offset = (get_viewport().get_mouse_position())
-	$Camera2D.position = lerp(Vector2(), mouse_offset.normalized() * 500, mouse_offset.length() / 1000)
 	# Add the gravity.
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity += Gravity.gravitate(position)
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump"):
