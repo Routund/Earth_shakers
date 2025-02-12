@@ -22,6 +22,8 @@ func _ready():
 func add_impact(impact_site : Vector3):
 	impact_site = impact_site.normalized()
 	impact_points.append([impact_site,k])
+	Gravity.impact_points = impact_points
+	Gravity.k = k
 	var impact_image = Image.create_empty(impact_points.size(),1,false,Image.FORMAT_RGBAF)
 	for i in range(len(impact_points)):
 		impact_image.set_pixel(i,0,Color(impact_points[i][0].x/2 + 0.5,impact_points[i][0].y/2 + 0.5,impact_points[i][0].z/2 + 0.5,impact_points[i][1]/1000))

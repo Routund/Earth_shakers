@@ -8,7 +8,9 @@ const JUMP_VELOCITY = 4.5
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		var accel = -Gravity.gravitate(position)
+		velocity = accel * delta
+		$RayCast3D.target_position = accel * delta
 
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
@@ -22,7 +24,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		velocity.x += move_toward(velocity.x, 0, SPEED)
+		velocity.z += move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
