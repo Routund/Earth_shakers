@@ -3,7 +3,7 @@
 [ext_resource type="Shader" path="res://Shaders/planet_wave.gdshader" id="1_nw1d7"]
 [ext_resource type="Script" path="res://Scripts/UvSphere.gd" id="3_08ukf"]
 [ext_resource type="PackedScene" uid="uid://cnjb7mb2dxn31" path="res://Sculptures/UFO.glb" id="4_luwtk"]
-[ext_resource type="PackedScene" uid="uid://cjx37ovhlvclj" path="res://Scenes/player.tscn" id="4_n1flc"]
+[ext_resource type="PackedScene" uid="uid://cdq77svver7c0" path="res://Scenes/player.tscn" id="4_n1flc"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x20ug"]
 
@@ -40,9 +40,6 @@ script = ExtResource("3_08ukf")
 
 [node name="UFO" parent="." instance=ExtResource("4_luwtk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.00284, -4.76837e-07, 0.359719)
-
-[node name="Camera3D2" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.913269, 0.407358, 0, -0.407358, 0.913269, 0.623209, 3.4577, 16.6761)
 
 [node name="player" parent="." instance=ExtResource("4_n1flc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.623209, 3.4577, -0.33631)

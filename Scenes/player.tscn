@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjx37ovhlvclj"]
+[gd_scene load_steps=3 format=3 uid="uid://cdq77svver7c0"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_5rkx4"]
 
@@ -15,6 +15,7 @@ shape = SubResource("SphereShape3D_pe1jp")
 visible = false
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
+
 [node name="head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.841788, 0)
 
