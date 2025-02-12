@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjx37ovhlvclj"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_5rkx4"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pe1jp"]
+radius = 0.580856
+
+[node name="player" type="CharacterBody3D"]
+script = ExtResource("1_5rkx4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_pe1jp")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+visible = false
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.841788, 0)
+
+[node name="Camera3D" type="Camera3D" parent="head"]
