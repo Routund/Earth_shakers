@@ -42,7 +42,7 @@ script = ExtResource("3_08ukf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.00284, -4.76837e-07, 0.359719)
 
 [node name="player" parent="." instance=ExtResource("4_n1flc")]
-transform = Transform3D(1, 0, 0, 0, -0.175813, 0.984424, 0, -0.984424, -0.175813, 0.623209, 3.4577, -0.33631)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.623209, 3.4577, -0.33631)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
