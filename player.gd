@@ -11,22 +11,24 @@ const SENS = 0.005
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-func _unhandled_input(event):
-	if event is InputEventMouseMotion:
-		rotate_y(-event.relative.x * SENS)
-		camera.rotate_x(-event.relative.y * SENS)
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-85), deg_to_rad(85))
-		
+#func _unhandled_input(event):
+	#if event is InputEventMouseMotion:
+		#rotate_y(-event.relative.x * SENS)
+		#camera.rotate_x(-event.relative.y * SENS)
+		#camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-85), deg_to_rad(85))
+		#
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
-		var accel = -Gravity.gravitate(position)
-		velocity = accel * delta
-		$RayCast3D.target_position = accel * delta
+		var accel = Gravity.gravitate(position)
+		velocity = -accel[0] * delta * 50
+		$RayCast3D.target_position = accel[1] - position
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity += JUMP_VELOCITY* position.normalized()
+	if Input.is_action_just_pressed("ui_cancel"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
