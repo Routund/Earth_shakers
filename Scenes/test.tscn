@@ -53,3 +53,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.623209, 3.4577, -0.33631)
 transform = Transform3D(1, 0, 0, 0, 0.990677, -0.136234, 0, 0.136234, 0.990677, 0, 0.0117832, -0.0666067)
 shape = SubResource("SphereShape3D_mgivc")
 disabled = true
+
+[node name="Enemy_Spawner" type="Node3D" parent="."]
