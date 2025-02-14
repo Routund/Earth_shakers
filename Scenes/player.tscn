@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cdq77svver7c0"]
+[gd_scene load_steps=4 format=3 uid="uid://cdq77svver7c0"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_5rkx4"]
+[ext_resource type="PackedScene" uid="uid://cnjb7mb2dxn31" path="res://Sculptures/UFO.glb" id="2_ofu1b"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pe1jp"]
 radius = 0.580856
@@ -11,12 +12,12 @@ script = ExtResource("1_5rkx4")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_pe1jp")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-visible = false
-
 [node name="RayCast3D" type="RayCast3D" parent="."]
 
 [node name="head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.841788, 0)
 
 [node name="Camera3D" type="Camera3D" parent="head"]
+
+[node name="UFO" parent="head" instance=ExtResource("2_ofu1b")]
+transform = Transform3D(0.0865361, 0.0501148, 0, -0.0501148, 0.0865361, 0, 0, 0, 0.1, 0.880472, -0.746585, -0.47088)
