@@ -16,12 +16,11 @@ var perpendicular_movement : Vector3 = Vector3(0,0,0)
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-#func _unhandled_input(event):
-	#if event is InputEventMouseMotion:
-		#rotate_y(-event.relative.x * SENS)
-		#camera.rotate_x(-event.relative.y * SENS)
-		#camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-85), deg_to_rad(85))
-		#
+func _unhandled_input(event):
+	if event is InputEventMouseMotion:
+		rotate_y(-event.relative.x * SENS)
+		camera.rotate_x(-event.relative.y * SENS)
+		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-85), deg_to_rad(85))
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
