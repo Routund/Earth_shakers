@@ -3,7 +3,7 @@
 [ext_resource type="Shader" path="res://Shaders/planet_wave.gdshader" id="1_nw1d7"]
 [ext_resource type="Script" path="res://Scripts/UvSphere.gd" id="3_08ukf"]
 [ext_resource type="PackedScene" uid="uid://cnjb7mb2dxn31" path="res://Sculptures/UFO.glb" id="4_luwtk"]
-[ext_resource type="PackedScene" uid="uid://cjx37ovhlvclj" path="res://Scenes/player.tscn" id="4_n1flc"]
+[ext_resource type="PackedScene" uid="uid://cdq77svver7c0" path="res://Scenes/player.tscn" id="4_n1flc"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x20ug"]
 
@@ -14,8 +14,8 @@ shader_parameter/num_impacts = 0
 shader_parameter/radius = 1.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_hk8ae"]
-radius = 2.0
-height = 4.0
+radius = 8.0
+height = 16.0
 radial_segments = 75
 rings = 75
 
@@ -25,7 +25,11 @@ radius = 2.35768
 [node name="Node3D" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.796952, 0, 0.604043, 0, 1, 0, -0.604043, 0, 0.796952, 16.9971, -9.53674e-07, 15.8772)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 16.9971, -9.53674e-07, 15.8772)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.623209, 3.4577, -0.33631)
+light_energy = 0.1
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
 visible = false
@@ -39,13 +43,10 @@ skeleton = NodePath("")
 script = ExtResource("3_08ukf")
 
 [node name="UFO" parent="." instance=ExtResource("4_luwtk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.00284, -4.76837e-07, 0.359719)
-
-[node name="Camera3D2" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.913269, 0.407358, 0, -0.407358, 0.913269, 0.623209, 3.4577, 16.6761)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.04159, -4.76837e-07, 0.359719)
 
 [node name="player" parent="." instance=ExtResource("4_n1flc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.623209, 3.4577, -0.33631)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -53,5 +54,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.623209, 3.4577, -0.33631)
 transform = Transform3D(1, 0, 0, 0, 0.990677, -0.136234, 0, 0.136234, 0.990677, 0, 0.0117832, -0.0666067)
 shape = SubResource("SphereShape3D_mgivc")
 disabled = true
-
-[node name="Enemy_Spawner" type="Node3D" parent="."]
