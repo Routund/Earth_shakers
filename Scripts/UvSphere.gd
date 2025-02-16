@@ -2,7 +2,7 @@ extends MeshInstance3D
 
 var rings = 75
 var radial_segments = 75
-var radius = 1.6
+var radius = 8
 
 var k : float = 0
 
@@ -23,7 +23,6 @@ func add_impact(impact_site : Vector3):
 	impact_site = impact_site.normalized()
 	impact_points.append([impact_site,k])
 	Gravity.impact_points = impact_points
-	Gravity.k = k
 	var impact_image = Image.create_empty(impact_points.size(),1,false,Image.FORMAT_RGBAF)
 	for i in range(len(impact_points)):
 		impact_image.set_pixel(i,0,Color(impact_points[i][0].x/2 + 0.5,impact_points[i][0].y/2 + 0.5,impact_points[i][0].z/2 + 0.5,impact_points[i][1]/1000))
@@ -32,6 +31,7 @@ func add_impact(impact_site : Vector3):
 
 func _process(delta : float) -> void:
 	k+=delta  
+	Gravity.k = k
 	if Input.is_action_just_pressed("jump"):
 		add_impact(Vector3(randf()- 0.5,randf() - 0.5,randf()-0.5).normalized())
 		if len(impact_points)==100:

@@ -7,18 +7,36 @@
 radius = 0.580856
 
 [node name="player" type="CharacterBody3D"]
+rotation_edit_mode = 2
 script = ExtResource("1_5rkx4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_pe1jp")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
-hit_back_faces = false
-
 [node name="head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.841788, 0)
 
 [node name="Camera3D" type="Camera3D" parent="head"]
+rotation_edit_mode = 2
+
+[node name="Camera_RayCast" type="RayCast3D" parent="head/Camera3D"]
+target_position = Vector3(0, 0, -1)
+hit_back_faces = false
+collide_with_bodies = false
+debug_shape_custom_color = Color(0.855536, 0.880725, 0.226302, 1)
 
 [node name="UFO" parent="head" instance=ExtResource("2_ofu1b")]
 transform = Transform3D(0.0865361, 0.0501148, 0, -0.0501148, 0.0865361, 0, 0, 0, 0.1, 0.880472, -0.746585, -0.47088)
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -1)
+hit_back_faces = false
+debug_shape_custom_color = Color(0.160784, 0.360784, 1, 1)
+
+[node name="RayCast3D3" type="RayCast3D" parent="."]
+target_position = Vector3(0, 1, 0)
+debug_shape_custom_color = Color(0, 0.811765, 0.0196078, 1)
+
+[node name="RayCast3D2" type="RayCast3D" parent="."]
+target_position = Vector3(1, 0, 0)
+debug_shape_custom_color = Color(1, 0, 0.215686, 1)

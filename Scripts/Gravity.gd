@@ -5,7 +5,7 @@ const dampening : float = 2.0;
 const phase_shift : float = PI/4.0;
 const frequency : float = 15.0;
 const height : float = 0.09;
-const radius : float = 2.0;
+const radius : float = 8.0;
 
 var impact_points = []
 var k = 0

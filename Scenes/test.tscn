@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bi16iyfo3yx4e"]
+[gd_scene load_steps=10 format=3 uid="uid://bi16iyfo3yx4e"]
 
 [ext_resource type="Shader" path="res://Shaders/planet_wave.gdshader" id="1_nw1d7"]
 [ext_resource type="Script" path="res://Scripts/UvSphere.gd" id="3_08ukf"]
 [ext_resource type="PackedScene" uid="uid://cnjb7mb2dxn31" path="res://Sculptures/UFO.glb" id="4_luwtk"]
 [ext_resource type="PackedScene" uid="uid://cdq77svver7c0" path="res://Scenes/player.tscn" id="4_n1flc"]
+[ext_resource type="Script" path="res://Scripts/test_camera.gd" id="5_cfsj1"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x20ug"]
 
@@ -14,8 +15,8 @@ shader_parameter/num_impacts = 0
 shader_parameter/radius = 1.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_hk8ae"]
-radius = 2.0
-height = 4.0
+radius = 8.0
+height = 16.0
 radial_segments = 75
 rings = 75
 
@@ -46,7 +47,7 @@ script = ExtResource("3_08ukf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.04159, -4.76837e-07, 0.359719)
 
 [node name="player" parent="." instance=ExtResource("4_n1flc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.623209, 3.4577, -0.33631)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -55,4 +56,6 @@ transform = Transform3D(1, 0, 0, 0, 0.990677, -0.136234, 0, 0.136234, 0.990677, 
 shape = SubResource("SphereShape3D_mgivc")
 disabled = true
 
-[node name="Enemy_Spawner" type="Node3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 21.5425)
+script = ExtResource("5_cfsj1")
