@@ -44,3 +44,5 @@ debug_shape_custom_color = Color(0, 0.811765, 0.0196078, 1)
 visible = false
 target_position = Vector3(1, 0, 0)
 debug_shape_custom_color = Color(1, 0, 0.215686, 1)
+
+[node name="RayCast3D4" type="RayCast3D" parent="."]

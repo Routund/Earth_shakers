@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://txex8r2k8fy0"]
+
+[ext_resource type="Script" path="res://Scenes/ufo.gd" id="1_e0gmj"]
+[ext_resource type="PackedScene" uid="uid://cnjb7mb2dxn31" path="res://Sculptures/UFO.glb" id="1_kmtnw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bef8r"]
+radius = 0.6
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ddwoe"]
+height = 0.4
+radius = 1.0
+
+[node name="UFO" type="Node3D"]
+
+[node name="Node3D" type="Node3D" parent="."]
+script = ExtResource("1_e0gmj")
+
+[node name="UFO" parent="Node3D" instance=ExtResource("1_kmtnw")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="Node3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Area3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.09, 0)
+shape = SubResource("SphereShape3D_bef8r")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Node3D/Area3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.03, 0)
+shape = SubResource("CylinderShape3D_ddwoe")
+
+[node name="Despawn" type="Timer" parent="Node3D"]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="Node3D/Despawn" to="Node3D" method="_on_despawn_timeout"]
