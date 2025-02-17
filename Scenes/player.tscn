@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdq77svver7c0"]
+[gd_scene load_steps=5 format=3 uid="uid://cdq77svver7c0"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_5rkx4"]
-[ext_resource type="PackedScene" uid="uid://cnjb7mb2dxn31" path="res://Sculptures/UFO.glb" id="2_ofu1b"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_5rkx4"]
+[ext_resource type="PackedScene" uid="uid://btjbiivq263s4" path="res://Scenes/gun.tscn" id="2_qdq0g"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pe1jp"]
 radius = 0.580856
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_qy76v"]
 
 [node name="player" type="CharacterBody3D"]
 rotation_edit_mode = 2
@@ -26,8 +28,10 @@ hit_back_faces = false
 collide_with_bodies = false
 debug_shape_custom_color = Color(0.855536, 0.880725, 0.226302, 1)
 
-[node name="UFO" parent="head" instance=ExtResource("2_ofu1b")]
-transform = Transform3D(0.0865361, 0.0501148, 0, -0.0501148, 0.0865361, 0, 0, 0, 0.1, 0.880472, -0.746585, -0.47088)
+[node name="gun" parent="head/Camera3D" instance=ExtResource("2_qdq0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.145696, -0.450595, -0.589972)
+
+[node name="bullet_spawn" type="Node3D" parent="head/Camera3D/gun"]
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 visible = false
@@ -44,3 +48,6 @@ debug_shape_custom_color = Color(0, 0.811765, 0.0196078, 1)
 visible = false
 target_position = Vector3(1, 0, 0)
 debug_shape_custom_color = Color(1, 0, 0.215686, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_qy76v")
