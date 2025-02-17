@@ -29,7 +29,6 @@ void vertex() {
 }
 
 void fragment() {
-	ALPHA = 0.5f;
 	// Called for every pixel the material is visible on.
 }
 

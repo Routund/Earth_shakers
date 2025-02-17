@@ -20,7 +20,7 @@ func _ready():
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
-		rotate_y(-event.relative.x * SENS)
+		camera_yaw = event.relative.x * SENS
 		camera.rotate_x(-event.relative.y * SENS)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-70), deg_to_rad(70))
 
@@ -42,8 +42,10 @@ func _physics_process(delta: float) -> void:
 			velocity = Vector3.ZERO
 	else:
 		# If player grounded, reset their position to be on top of the planet
-		position = Gravity.check_ground(position + velocity*delta)[0]
+		position = Gravity.check_ground(position + (gravitational_velocity + jump_velocity)*delta)[0]
 
+	rotate_player()
+	
 	# Let player escape mouse
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -69,28 +71,34 @@ func _physics_process(delta: float) -> void:
 	velocity = perpendicular_movement + gravitational_velocity + jump_velocity
 	move_and_slide()
 		
-	rotate_player()
 	
 func rotate_player():
+	
+	print(position)
+	
 	# Change_player_position
 	var relative_up : Vector3 = position_normalized
-	var camera_forward : Vector3 = -transform.basis.z
-	var side_axis : Vector3 = relative_up.cross(camera_forward)
+	var player_forward : Vector3 = -transform.basis.z
+	var side_axis : Vector3 = relative_up.cross(player_forward)
 	var new_forward : Vector3 = relative_up.cross(side_axis)
-	global_transform = global_transform.looking_at(-new_forward,relative_up)
+	transform = transform.looking_at(-new_forward,relative_up)
 	#print(angle_between)
 
 	
-	global_transform = Transform3D(global_transform.basis.x,global_transform.basis.z,-global_transform.basis.y,position)
+	transform = Transform3D(transform.basis.x,transform.basis.z,-transform.basis.y,position)
 	
-	global_transform.orthonormalized()
+	transform = transform.rotated(transform.basis.y, -camera_yaw)
+	
+	camera_yaw = 0
+	
+	transform.orthonormalized()
 	
 	#$RayCast3D.global_rotation = Vector3.ZERO
 	#$RayCast3D2.global_rotation = Vector3.ZERO
 	#$RayCast3D3.global_rotation = Vector3.ZERO
 	$RayCast3D4.global_rotation = Vector3.ZERO
-	
-	#$RayCast3D.target_position = relative_up
-	#$RayCast3D2.target_position = -camera.global_transform.basis.z
-	#$RayCast3D3.target_position = global_transform.basis.y
+	#
+	#$RayCast3D.target_position = player_forward
+	#$RayCast3D2.target_position = side_axis
+	#$RayCast3D3.target_position = new_forward
 	$RayCast3D4.target_position = perpendicular_movement
