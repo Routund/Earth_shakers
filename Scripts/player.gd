@@ -105,12 +105,3 @@ func rotate_player():
 	
 	transform.orthonormalized()
 	
-	#$RayCast3D.global_rotation = Vector3.ZERO
-	#$RayCast3D2.global_rotation = Vector3.ZERO
-	#$RayCast3D3.global_rotation = Vector3.ZERO
-	$RayCast3D4.global_rotation = Vector3.ZERO
-	#
-	#$RayCast3D.target_position = player_forward
-	#$RayCast3D2.target_position = side_axis
-	#$RayCast3D3.target_position = new_forward
-	$RayCast3D4.target_position = perpendicular_movement
