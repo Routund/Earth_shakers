@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bi16iyfo3yx4e"]
+[gd_scene load_steps=11 format=3 uid="uid://bi16iyfo3yx4e"]
 
 [ext_resource type="Shader" path="res://Shaders/planet_wave.gdshader" id="1_nw1d7"]
 [ext_resource type="Script" path="res://Scripts/UvSphere.gd" id="3_08ukf"]
 [ext_resource type="PackedScene" uid="uid://cnjb7mb2dxn31" path="res://Sculptures/UFO.glb" id="4_luwtk"]
 [ext_resource type="PackedScene" uid="uid://cdq77svver7c0" path="res://Scenes/player.tscn" id="4_n1flc"]
 [ext_resource type="Script" path="res://Scripts/enemy_spawner.gd" id="5_jv2rp"]
+[ext_resource type="Script" path="res://Scripts/test_camera.gd" id="6_7i4cg"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x20ug"]
 
@@ -63,5 +64,9 @@ script = ExtResource("5_jv2rp")
 
 [node name="Spawn_Timer" type="Timer" parent="Enemy_Spawner"]
 autostart = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.8607)
+script = ExtResource("6_7i4cg")
 
 [connection signal="timeout" from="Enemy_Spawner/Spawn_Timer" to="Enemy_Spawner" method="_on_timer_timeout"]

@@ -9,13 +9,20 @@ var instance
 var bullet_rotation = 0
 
 var gravitational_velocity : Vector3 = Vector3.ZERO
+var gravity_scale : float = 1
 var jump_velocity : Vector3 = Vector3.ZERO
+var jump_scale : float = 5
 var perpendicular_movement : Vector3 = Vector3.ZERO
+
 var direction : Vector3 = Vector3.ZERO
 var position_normalized : Vector3
 var camera_yaw :float = 0
+
+var ground_pounding : bool = false
+
 @onready var head = $head
 @onready var camera = $head/Camera3D
+@onready var Planet = get_parent().get_node("Planet")
 
 var grounded : bool = false
 
@@ -42,16 +49,25 @@ func _physics_process(delta: float) -> void:
 	
 	# If player isn't grounded, increase the amount of velocity due to gravity
 	if !grounded:
+		if Input.is_action_just_pressed("ground_pound") and position.length() > 10:
+			ground_pounding = true
+			gravity_scale = 6
+			print("Pounding")
 		var accel = Gravity.gravitate(position)
-		gravitational_velocity += -accel[0] * delta * 1
+		gravitational_velocity += -accel[0] * delta * gravity_scale
 		var ground_result = Gravity.check_ground(position + velocity * delta)
 		if ground_result[1]:
 			# Resets velocity due to gravity and jumping, and sets player position to be on top of planet
 			gravitational_velocity = Vector3.ZERO
-			jump_velocity = Vector3(0,0,0)
+			jump_velocity = Vector3.ZERO
+			velocity = Vector3.ZERO
+			
 			position = ground_result[0]
 			grounded = true
-			velocity = Vector3.ZERO
+			gravity_scale = 1
+			if ground_pounding:
+				Planet.add_impact(position)
+				ground_pounding = false
 	else:
 		# If player grounded, reset their position to be on top of the planet
 		position = Gravity.check_ground(position + (gravitational_velocity + jump_velocity)*delta)[0]

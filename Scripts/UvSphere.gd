@@ -34,8 +34,7 @@ func add_impact(impact_site : Vector3):
 func _process(delta : float) -> void:
 	k+=delta  
 	Gravity.k = k
-	if Input.is_action_just_pressed("jump"):
-		add_impact(Vector3(randf()- 0.5,randf() - 0.5,randf()-0.5).normalized())
+
 	
 	if Input.is_action_pressed("left"):
 		rotation.y -= 0.02
