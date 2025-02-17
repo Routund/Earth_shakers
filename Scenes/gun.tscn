@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://btjbiivq263s4"]
+
+[ext_resource type="PackedScene" uid="uid://cnjb7mb2dxn31" path="res://Sculptures/UFO.glb" id="1_js7et"]
+
+[node name="gun" type="Node3D"]
+
+[node name="UFO" parent="." instance=ExtResource("1_js7et")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)

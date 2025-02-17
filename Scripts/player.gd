@@ -4,6 +4,10 @@ extends CharacterBody3D
 const SPEED = 5.0
 const SENS = 0.005
 
+var bullet = load("res://Scenes/bullet.tscn")
+var instance 
+var bullet_rotation = 0
+
 var gravitational_velocity : Vector3 = Vector3.ZERO
 var jump_velocity : Vector3 = Vector3.ZERO
 var perpendicular_movement : Vector3 = Vector3.ZERO
@@ -25,7 +29,15 @@ func _unhandled_input(event):
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-70), deg_to_rad(70))
 
 func _physics_process(delta: float) -> void:
-	
+	if Input.is_action_pressed("shoot"):
+		for i in range(5):
+			bullet_rotation += 1000
+			instance = bullet.instantiate()
+			instance.position = $head/Camera3D/gun/bullet_spawn.global_position 
+			instance.transform.basis = $head/Camera3D/gun/bullet_spawn.global_transform.basis * bullet_rotation
+			get_parent().add_child(instance)
+		bullet_rotation = 0
+		
 	position_normalized = position.normalized()
 	
 	# If player isn't grounded, increase the amount of velocity due to gravity
