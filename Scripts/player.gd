@@ -56,7 +56,8 @@ func _physics_process(delta: float) -> void:
 		# If player grounded, reset their position to be on top of the planet
 		position = Gravity.check_ground(position + (gravitational_velocity + jump_velocity)*delta)[0]
 
-	rotate_player()
+	transform = Gravity.rotate_object(position,transform,camera_yaw)
+	camera_yaw = 0
 	
 	# Let player escape mouse
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -84,24 +85,5 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 		
 	
-func rotate_player():
-	
-	print(position)
-	
-	# Change_player_position
-	var relative_up : Vector3 = position_normalized
-	var player_forward : Vector3 = -transform.basis.z
-	var side_axis : Vector3 = relative_up.cross(player_forward)
-	var new_forward : Vector3 = relative_up.cross(side_axis)
-	transform = transform.looking_at(-new_forward,relative_up)
-	#print(angle_between)
 
-	
-	transform = Transform3D(transform.basis.x,transform.basis.z,-transform.basis.y,position)
-	
-	transform = transform.rotated(transform.basis.y, -camera_yaw)
-	
-	camera_yaw = 0
-	
-	transform.orthonormalized()
 	
