@@ -2,6 +2,7 @@ extends Node3D
 
 var ufo = preload("res://Scenes/ufo.tscn")
 var difficulty = 100
+var radius : float = 9
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,9 +15,8 @@ func spawn():
 	var yv = rng.randf_range(-1,1)
 	var zv = rng.randf_range(-1,1)
 	var selected_vect = Vector3(xv,yv,zv)
-	add_ufo.position = selected_vect.normalized() * 4
+	add_ufo.position = selected_vect.normalized() * radius
 	add_child(add_ufo)
-	print('sigma skibidoink')
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -24,7 +24,6 @@ func _process(delta: float) -> void:
 
 
 func _on_timer_timeout() -> void:
-	print('hi')
 	spawn()
 	
 	$Spawn_Timer.start()
