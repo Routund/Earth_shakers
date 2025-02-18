@@ -64,4 +64,7 @@ script = ExtResource("5_jv2rp")
 [node name="Spawn_Timer" type="Timer" parent="Enemy_Spawner"]
 autostart = true
 
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.1222)
+
 [connection signal="timeout" from="Enemy_Spawner/Spawn_Timer" to="Enemy_Spawner" method="_on_timer_timeout"]

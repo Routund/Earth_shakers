@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://txex8r2k8fy0"]
 
-[ext_resource type="Script" path="res://Scenes/ufo.gd" id="1_e0gmj"]
+[ext_resource type="Script" path="res://Scripts/ufo.gd" id="1_e0gmj"]
 [ext_resource type="PackedScene" uid="uid://cnjb7mb2dxn31" path="res://Sculptures/UFO.glb" id="1_kmtnw"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_bef8r"]
@@ -18,13 +18,15 @@ script = ExtResource("1_e0gmj")
 [node name="UFO" parent="Node3D" instance=ExtResource("1_kmtnw")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 
-[node name="Area3D" type="Area3D" parent="Node3D"]
+[node name="Area3Dufo" type="Area3D" parent="Node3D"]
+collision_layer = 2
+monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Area3Dufo"]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.09, 0)
 shape = SubResource("SphereShape3D_bef8r")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Node3D/Area3D"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Node3D/Area3Dufo"]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.03, 0)
 shape = SubResource("CylinderShape3D_ddwoe")
 
@@ -32,4 +34,5 @@ shape = SubResource("CylinderShape3D_ddwoe")
 wait_time = 10.0
 autostart = true
 
+[connection signal="area_entered" from="Node3D/Area3Dufo" to="Node3D" method="_on_area_3_dufo_area_entered"]
 [connection signal="timeout" from="Node3D/Despawn" to="Node3D" method="_on_despawn_timeout"]

@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 			bullet_rotation += 1000
 			instance = bullet.instantiate()
 			instance.position = $head/Camera3D/gun/bullet_spawn.global_position 
-			instance.transform.basis = $head/Camera3D/gun/bullet_spawn.global_transform.basis * bullet_rotation
+			instance.transform.basis = $head/Camera3D/gun/bullet_spawn.global_transform.basis
 			get_parent().add_child(instance)
 		bullet_rotation = 0
 		
@@ -85,8 +85,6 @@ func _physics_process(delta: float) -> void:
 		
 	
 func rotate_player():
-	
-	print(position)
 	
 	# Change_player_position
 	var relative_up : Vector3 = position_normalized
