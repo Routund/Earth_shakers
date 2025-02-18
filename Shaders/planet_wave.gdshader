@@ -1,4 +1,5 @@
 shader_type spatial;
+render_mode world_vertex_coords;
 
 uniform sampler2D impact_data;
 uniform int num_impacts;
@@ -7,8 +8,8 @@ uniform float radius;
 const float e = 2.718281;
 const float dampening = 2.0;
 const float phase_shift = PI/4.0;
-const float frequency = 15.0;
-const float height = 0.09;
+const float frequency = 18.0;
+const float height = 0.13;
 
 
 void vertex() {
