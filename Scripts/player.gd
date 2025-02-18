@@ -3,10 +3,10 @@ extends CharacterBody3D
 
 const SPEED = 5.0
 const SENS = 0.005
+var bullet_rotation = -45
 
 var bullet = load("res://Scenes/bullet.tscn")
-var instance 
-var bullet_rotation = 0
+var instance
 
 var gravitational_velocity : Vector3 = Vector3.ZERO
 var gravity_scale : float = 1
@@ -25,6 +25,8 @@ var ground_pounding : bool = false
 @onready var Planet = get_parent().get_node("Planet")
 
 var grounded : bool = false
+var riffle = false
+var shotgun = true
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -36,14 +38,21 @@ func _unhandled_input(event):
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-70), deg_to_rad(70))
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_pressed("shoot"):
+	if Input.is_action_pressed("shoot") and riffle:
+		instance = bullet.instantiate()
+		instance.position = $head/Camera3D/gun/bullet_spawn.global_position 
+		instance.transform.basis = $head/Camera3D/gun/bullet_spawn.global_transform.basis
+		get_parent().add_child(instance)
+	elif Input.is_action_pressed("shoot") and shotgun:
 		for i in range(5):
-			bullet_rotation += 1000
+			bullet_rotation += 18
 			instance = bullet.instantiate()
 			instance.position = $head/Camera3D/gun/bullet_spawn.global_position 
-			instance.transform.basis = $head/Camera3D/gun/bullet_spawn.global_transform.basis * bullet_rotation
+			instance.transform.basis = $head/Camera3D/gun/bullet_spawn.global_transform.basis
+			instance.rotation = Vector3(deg_to_rad(bullet_rotation),deg_to_rad(bullet_rotation),deg_to_rad(bullet_rotation)) + rotation
 			get_parent().add_child(instance)
-		bullet_rotation = 0
+		bullet_rotation = -45
+			
 		
 	position_normalized = position.normalized()
 	

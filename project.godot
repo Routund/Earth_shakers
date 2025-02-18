@@ -18,6 +18,7 @@ config/icon="res://Sprites/icon.svg"
 [autoload]
 
 Gravity="*res://Scripts/Gravity.gd"
+Global="*res://global.gd"
 
 [input]
 
