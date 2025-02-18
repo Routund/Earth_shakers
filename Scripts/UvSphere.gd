@@ -22,6 +22,8 @@ func _ready():
 func add_impact(impact_site : Vector3):
 	impact_site = impact_site.normalized()
 	impact_points.append([impact_site,k])
+	if len(impact_points)==100:
+		impact_points.pop_at(0)
 	Gravity.impact_points = impact_points
 	var impact_image = Image.create_empty(impact_points.size(),1,false,Image.FORMAT_RGBAF)
 	for i in range(len(impact_points)):
@@ -32,10 +34,7 @@ func add_impact(impact_site : Vector3):
 func _process(delta : float) -> void:
 	k+=delta  
 	Gravity.k = k
-	if Input.is_action_just_pressed("jump"):
-		add_impact(Vector3(randf()- 0.5,randf() - 0.5,randf()-0.5).normalized())
-		if len(impact_points)==100:
-			impact_points.pop_at(0)
+
 	
 	if Input.is_action_pressed("left"):
 		rotation.y -= 0.02
