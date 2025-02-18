@@ -20,6 +20,10 @@ config/icon="res://Sprites/icon.svg"
 Gravity="*res://Scripts/Gravity.gd"
 Global="*res://global.gd"
 
+[global_group]
+
+bullet="this is for bullets"
+
 [input]
 
 jump={

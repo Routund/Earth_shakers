@@ -49,7 +49,6 @@ func _physics_process(delta: float) -> void:
 			instance = bullet.instantiate()
 			instance.position = $head/Camera3D/gun/bullet_spawn.global_position 
 			instance.transform.basis = $head/Camera3D/gun/bullet_spawn.global_transform.basis
-			instance.rotation = Vector3(deg_to_rad(bullet_rotation),deg_to_rad(bullet_rotation),deg_to_rad(bullet_rotation)) + rotation
 			get_parent().add_child(instance)
 		bullet_rotation = -45
 			
@@ -110,5 +109,14 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 		
 	
+func rotate_player():
+	
+	# Change_player_position
+	var relative_up : Vector3 = position_normalized
+	var player_forward : Vector3 = -transform.basis.z
+	var side_axis : Vector3 = relative_up.cross(player_forward)
+	var new_forward : Vector3 = relative_up.cross(side_axis)
+	transform = transform.looking_at(-new_forward,relative_up)
+	#print(angle_between)
 
 	
