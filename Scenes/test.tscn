@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bi16iyfo3yx4e"]
+[gd_scene load_steps=14 format=3 uid="uid://bi16iyfo3yx4e"]
 
 [ext_resource type="Shader" path="res://Shaders/planet_wave.gdshader" id="1_nw1d7"]
 [ext_resource type="Script" path="res://Scripts/UvSphere.gd" id="3_08ukf"]
 [ext_resource type="PackedScene" uid="uid://cnjb7mb2dxn31" path="res://Sculptures/UFO.glb" id="4_luwtk"]
 [ext_resource type="PackedScene" uid="uid://cdq77svver7c0" path="res://Scenes/player.tscn" id="4_n1flc"]
 [ext_resource type="Script" path="res://Scripts/enemy_spawner.gd" id="5_jv2rp"]
+[ext_resource type="Texture2D" uid="uid://cdn156mgdjr3m" path="res://Sprites/Space_Background.png" id="6_luhl5"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x20ug"]
 
@@ -23,15 +24,24 @@ rings = 75
 [sub_resource type="SphereShape3D" id="SphereShape3D_mgivc"]
 radius = 2.35768
 
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_xlq3j"]
+panorama = ExtResource("6_luhl5")
+
+[sub_resource type="Sky" id="Sky_dkcm2"]
+sky_material = SubResource("PanoramaSkyMaterial_xlq3j")
+
+[sub_resource type="Environment" id="Environment_1up47"]
+background_mode = 2
+sky = SubResource("Sky_dkcm2")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.01
+
 [node name="Node3D" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.796952, 0, 0.604043, 0, 1, 0, -0.604043, 0, 0.796952, 16.9971, -9.53674e-07, 15.8772)
-light_bake_mode = 1
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="DirectionalLight3D"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-light_energy = 0.1
+light_energy = 1.42
 light_bake_mode = 1
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
@@ -49,7 +59,7 @@ script = ExtResource("3_08ukf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.00284, -4.76837e-07, 0.359719)
 
 [node name="player" parent="." instance=ExtResource("4_n1flc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.623209, 3.4577, -0.33631)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -64,7 +74,7 @@ script = ExtResource("5_jv2rp")
 [node name="Spawn_Timer" type="Timer" parent="Enemy_Spawner"]
 autostart = true
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.1222)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1up47")
 
 [connection signal="timeout" from="Enemy_Spawner/Spawn_Timer" to="Enemy_Spawner" method="_on_timer_timeout"]

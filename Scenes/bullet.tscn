@@ -16,6 +16,7 @@ script = ExtResource("1_ijrs3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+cast_shadow = 0
 mesh = SubResource("CylinderMesh_4w0ww")
 
 [node name="Timer" type="Timer" parent="."]

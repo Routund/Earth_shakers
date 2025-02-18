@@ -3,8 +3,8 @@ extends Node
 const e : float = 2.718281;
 const dampening : float = 2.0;
 const phase_shift : float = PI/4.0;
-const frequency : float = 15.0;
-const height : float = 0.09;
+const frequency : float = 18.0;
+const height : float = 0.13;
 const radius : float = 8.0;
 
 var impact_points = []
@@ -42,3 +42,19 @@ func check_ground(place : Vector3):
 		return [vec_normal * (radius + additive),true]
 	else:
 		return [vec_normal * (radius + additive),false]
+
+func rotate_object(object_position : Vector3, object_transform : Transform3D, misc_y_rotate : float = 0) -> Transform3D:
+	
+	# Change_player_position
+	var relative_up : Vector3 = object_position.normalized()
+	var object_forward : Vector3 = -object_transform.basis.z
+	var side_axis : Vector3 = relative_up.cross(object_forward)
+	var new_forward : Vector3 = relative_up.cross(side_axis)
+	var new_transform = object_transform.looking_at(-new_forward,relative_up)
+	#print(angle_between)
+
+	
+	new_transform = Transform3D(new_transform.basis.x,new_transform.basis.z,-new_transform.basis.y,object_position)
+	new_transform = new_transform.rotated(new_transform.basis.y, -misc_y_rotate)
+	new_transform.orthonormalized()
+	return new_transform
