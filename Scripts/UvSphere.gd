@@ -22,6 +22,7 @@ func _ready():
 func add_impact(impact_site : Vector3):
 	impact_site = impact_site.normalized()
 	impact_points.append([impact_site,k])
+	print("adding")
 	if len(impact_points)==100:
 		impact_points.pop_at(0)
 	Gravity.impact_points = impact_points
