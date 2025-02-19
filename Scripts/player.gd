@@ -47,6 +47,7 @@ func _physics_process(delta: float) -> void:
 		for i in range(5):
 			bullet_rotation += 18
 			instance = bullet.instantiate()
+			instance.transform = $head/Camera3D/gun/bullet_spawn.global_transform.rotated(transform.basis.y,deg_to_rad(-bullet_rotation+randf_range(-6,6)))
 			instance.position = $head/Camera3D/gun/bullet_spawn.global_position 
 			instance.transform.basis = $head/Camera3D/gun/bullet_spawn.global_transform.basis
 			get_parent().add_child(instance)
