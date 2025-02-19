@@ -1,7 +1,7 @@
 extends Node3D
 
 var moving = true
-
+var health = 100
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -17,3 +17,11 @@ func _process(delta: float) -> void:
 
 func _on_despawn_timeout() -> void:
 	queue_free()
+
+
+func _on_area_3_dufo_area_entered(area: Area3D) -> void:
+	if area.is_in_group('bullet'):
+		self.health -= area.get_parent().damage
+		area.get_parent().queue_free()
+		if self.health <= 0:
+			queue_free()
