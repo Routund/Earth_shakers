@@ -3,10 +3,6 @@ extends CharacterBody3D
 
 const SPEED = 5.0
 const SENS = 0.005
-var bullet_rotation = -45
-
-var bullet = load("res://Scenes/bullet.tscn")
-var instance
 
 var gravitational_velocity : Vector3 = Vector3.ZERO
 var gravity_scale : float = 1
@@ -25,8 +21,7 @@ var ground_pounding : bool = false
 @onready var Planet = get_parent().get_node("Planet")
 
 var grounded : bool = false
-var riffle = false
-var shotgun = true
+
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -38,22 +33,6 @@ func _unhandled_input(event):
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-70), deg_to_rad(70))
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_pressed("shoot") and riffle:
-		instance = bullet.instantiate()
-		instance.position = $head/Camera3D/gun/bullet_spawn.global_position 
-		instance.transform.basis = $head/Camera3D/gun/bullet_spawn.global_transform.basis
-		get_parent().add_child(instance)
-	elif Input.is_action_pressed("shoot") and shotgun:
-		for i in range(5):
-			bullet_rotation += 18
-			instance = bullet.instantiate()
-			instance.transform = $head/Camera3D/gun/bullet_spawn.global_transform.rotated(transform.basis.y,deg_to_rad(-bullet_rotation+randf_range(-6,6)))
-			instance.position = $head/Camera3D/gun/bullet_spawn.global_position 
-			instance.transform.basis = $head/Camera3D/gun/bullet_spawn.global_transform.basis
-			get_parent().add_child(instance)
-		bullet_rotation = -45
-			
-		
 	position_normalized = position.normalized()
 	
 	# If player isn't grounded, increase the amount of velocity due to gravity
@@ -101,7 +80,7 @@ func _physics_process(delta: float) -> void:
 		perpendicular_movement.y = move_toward(perpendicular_movement.y, 0, SPEED)
 	# Add to jump velocity
 	if Input.is_action_just_pressed("jump") and grounded:
-		jump_velocity += position.normalized() * 5
+		jump_velocity += position.normalized() * jump_scale
 		grounded = false
 	
 	

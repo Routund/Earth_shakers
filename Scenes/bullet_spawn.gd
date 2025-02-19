@@ -1,6 +1,12 @@
 extends Node3D
 
-
+var riffle = false
+var shotgun = true
+var bullet_rotation = -45
+var bullet = load("res://Scenes/bullet.tscn")
+var instance
+signal shot(power : float)
+@onready var player = $"../../../.."
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -8,4 +14,20 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("shoot"):
+		if riffle:
+			instance = bullet.instantiate()
+			instance.position = global_position 
+			instance.transform.basis = global_transform.basis
+			player.get_parent().add_child(instance)
+			shot.emit(0.05)
+		if shotgun:
+			for i in range(5):
+				bullet_rotation += 3
+				instance = bullet.instantiate()
+				instance.transform = global_transform.rotated(player.transform.basis.y,deg_to_rad(-bullet_rotation+randf_range(-6,6)))
+				instance.position = global_position
+				player.get_parent().add_child(instance)
+			bullet_rotation = -6
+			shot.emit(0.2)
 	pass

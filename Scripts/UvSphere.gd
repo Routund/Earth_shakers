@@ -17,6 +17,10 @@ var normals = PackedVector3Array()
 var indices = PackedInt32Array()
 
 func _ready():
+	material_override.set("shader_parameter/dampening",Gravity.dampening)
+	material_override.set("shader_parameter/phase_shift",Gravity.phase_shift)
+	material_override.set("shader_parameter/frequency",Gravity.frequency)
+	material_override.set("shader_parameter/height",Gravity.height)
 	randomize()
 
 func add_impact(impact_site : Vector3):

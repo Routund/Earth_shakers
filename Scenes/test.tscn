@@ -32,10 +32,12 @@ sky_material = SubResource("PanoramaSkyMaterial_xlq3j")
 
 [sub_resource type="Environment" id="Environment_1up47"]
 background_mode = 2
+background_energy_multiplier = 6.25
 sky = SubResource("Sky_dkcm2")
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.01
+ambient_light_energy = 0.03
+glow_enabled = true
 
 [node name="Node3D" type="Node3D"]
 
@@ -59,7 +61,7 @@ script = ExtResource("3_08ukf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.00284, -4.76837e-07, 0.359719)
 
 [node name="player" parent="." instance=ExtResource("4_n1flc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 

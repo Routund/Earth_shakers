@@ -1,12 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdq77svver7c0"]
+[gd_scene load_steps=9 format=3 uid="uid://cdq77svver7c0"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_5rkx4"]
+[ext_resource type="Script" path="res://Scripts/player_camera.gd" id="2_af3ny"]
 [ext_resource type="PackedScene" uid="uid://ddue75lsffifg" path="res://Scenes/gun.tscn" id="2_qdq0g"]
+[ext_resource type="Script" path="res://Scenes/bullet_spawn.gd" id="3_q00kt"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pe1jp"]
 radius = 0.580856
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qy76v"]
+
+[sub_resource type="Animation" id="Animation_dr358"]
+resource_name = "camera_shake"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("head/Camera3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array()
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d078q"]
+_data = {
+"camera_shake": SubResource("Animation_dr358")
+}
 
 [node name="player" type="CharacterBody3D"]
 rotation_edit_mode = 2
@@ -20,6 +37,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.841788, 0)
 
 [node name="Camera3D" type="Camera3D" parent="head"]
 rotation_edit_mode = 2
+script = ExtResource("2_af3ny")
 
 [node name="Camera_RayCast" type="RayCast3D" parent="head/Camera3D"]
 visible = false
@@ -32,6 +50,8 @@ debug_shape_custom_color = Color(0.855536, 0.880725, 0.226302, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.145696, -0.450595, -0.589972)
 
 [node name="bullet_spawn" type="Node3D" parent="head/Camera3D/gun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.139933, 0, 0.256309)
+script = ExtResource("3_q00kt")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -1)
@@ -48,3 +68,10 @@ debug_shape_custom_color = Color(1, 0, 0.215686, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_qy76v")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_d078q")
+}
+
+[connection signal="shot" from="head/Camera3D/gun/bullet_spawn" to="head/Camera3D" method="_on_bullet_spawn_shot"]
