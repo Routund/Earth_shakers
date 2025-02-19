@@ -11,7 +11,7 @@ height = 0.5
 script = ExtResource("1_ijrs3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-0.586288, -3.54107e-08, -0.810103, -0.810103, 2.56275e-08, 0.586288, 0, 1, -4.37114e-08, -0.00150347, 0.00640365, -0.00402218)
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_4w0ww")
 
