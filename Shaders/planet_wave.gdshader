@@ -13,6 +13,7 @@ uniform float height = 0.13;
 
 uniform vec4 albedo : source_color;
 uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform sampler2D texture_albedo2 : source_color, filter_linear_mipmap, repeat_enable;
 uniform float point_size : hint_range(0.1, 128.0, 0.1);
 
 uniform float roughness : hint_range(0.0, 1.0);
@@ -27,10 +28,11 @@ uniform vec3 uv1_scale;
 uniform vec3 uv1_offset;
 uniform vec3 uv2_scale;
 uniform vec3 uv2_offset;
+varying float additive;
 
 void vertex() {
 	int i = 0;
-	float additive = 0.0;
+	additive = 0.0;
 	vec3 vec_normal = normalize(VERTEX.xyz);
 
 	while (i < num_impacts){
@@ -51,7 +53,9 @@ void fragment() {
 	vec2 base_uv = UV;
 
 	vec4 albedo_tex = texture(texture_albedo, base_uv);
-	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	vec4 wave_tex = texture(texture_albedo2, base_uv);
+	vec3 new_tex = albedo_tex.rgb * (1.0 - additive) + wave_tex.rgb * additive * 10.0;
+	ALBEDO = new_tex;
 
 	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
 	METALLIC = metallic_tex * metallic;

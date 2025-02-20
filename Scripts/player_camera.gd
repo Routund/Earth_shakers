@@ -22,6 +22,7 @@ func _process(delta: float) -> void:
 		rotation_x_old = 0
 		rotation_y_old = 0
 		reset_flag = false
+	transform.orthonormalized()
 	pass
 
 
