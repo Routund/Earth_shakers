@@ -19,15 +19,34 @@ func _process(delta: float) -> void:
 	elif reset_flag:
 		rotation.x = rotation_x_old
 		rotation.y = rotation_y_old
+		rotation_x_old = 0
+		rotation_y_old = 0
 		reset_flag = false
 	pass
 
 
 func _on_bullet_spawn_shot(power : float) -> void:
+	
+	# Documented that multiple shots unlock camera rotation
+	# Perhaps add a cooldown timer to stop such things?
+	
 	shake = power
 	reset_flag = true
+	# Set what old rotation is to beafter shake is finished
 	rotation_x_old = rotation.x
 	rotation_y_old = rotation.y
 	var tween = create_tween()
 	tween.tween_property(self,"shake",0,0.15)
+	pass # Replace with function body.
+
+
+func _on_player_ground_pounded(power : float) -> void:
+	shake = power
+	reset_flag = true
+	# Set what old rotation is to beafter shake is finished
+	rotation_x_old = rotation.x
+	rotation_y_old = rotation.y
+	var tween = create_tween()
+	tween.tween_property(self,"shake",0,0.15)
+	pass # Replace with function body.
 	pass # Replace with function body.

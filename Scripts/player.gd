@@ -15,6 +15,7 @@ var position_normalized : Vector3
 var camera_yaw :float = 0
 
 var ground_pounding : bool = false
+signal ground_pounded(power : float)
 
 @onready var head = $head
 @onready var camera = $head/Camera3D
@@ -56,6 +57,7 @@ func _physics_process(delta: float) -> void:
 			if ground_pounding:
 				Planet.add_impact(position)
 				ground_pounding = false
+				ground_pounded.emit(0.25)
 	else:
 		# If player grounded, reset their position to be on top of the planet
 		position = Gravity.check_ground(position + (gravitational_velocity + jump_velocity)*delta)[0]

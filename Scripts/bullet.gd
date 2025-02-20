@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 var damage = 1
-const SPEED = 15
+const SPEED = 20
 var gravity_scale = 0.025
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

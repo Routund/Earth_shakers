@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_5rkx4"]
 [ext_resource type="Script" path="res://Scripts/player_camera.gd" id="2_af3ny"]
 [ext_resource type="PackedScene" uid="uid://ddue75lsffifg" path="res://Scenes/gun.tscn" id="2_qdq0g"]
-[ext_resource type="Script" path="res://Scenes/bullet_spawn.gd" id="3_q00kt"]
+[ext_resource type="Script" path="res://Scripts/bullet_spawn.gd" id="3_q00kt"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pe1jp"]
 radius = 0.580856
@@ -36,6 +36,7 @@ shape = SubResource("SphereShape3D_pe1jp")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.841788, 0)
 
 [node name="Camera3D" type="Camera3D" parent="head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.565727, 0)
 rotation_edit_mode = 2
 script = ExtResource("2_af3ny")
 
@@ -50,7 +51,7 @@ debug_shape_custom_color = Color(0.855536, 0.880725, 0.226302, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.145696, -0.450595, -0.589972)
 
 [node name="bullet_spawn" type="Node3D" parent="head/Camera3D/gun"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.139933, 0, 0.256309)
+transform = Transform3D(0.993086, 0.0554675, 0.103464, -0.0408978, 0.989592, -0.137972, -0.11004, 0.132786, 0.985017, -0.0132457, 0.0605384, -0.013514)
 script = ExtResource("3_q00kt")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
@@ -67,6 +68,7 @@ target_position = Vector3(1, 0, 0)
 debug_shape_custom_color = Color(1, 0, 0.215686, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_qy76v")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -74,4 +76,5 @@ libraries = {
 "": SubResource("AnimationLibrary_d078q")
 }
 
+[connection signal="ground_pounded" from="." to="head/Camera3D" method="_on_player_ground_pounded"]
 [connection signal="shot" from="head/Camera3D/gun/bullet_spawn" to="head/Camera3D" method="_on_bullet_spawn_shot"]

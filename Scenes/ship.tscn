@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dymba2b6oxlmo"]
 
 [ext_resource type="PackedScene" uid="uid://by68iatp3cc3h" path="res://Sculptures/Plane.glb" id="1_kmr38"]
-[ext_resource type="Script" path="res://Scenes/ship.gd" id="1_sxkrx"]
+[ext_resource type="Script" path="res://Scripts/ship.gd" id="1_sxkrx"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_vppyn"]
 height = 0.394085

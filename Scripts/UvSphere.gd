@@ -40,12 +40,6 @@ func _process(delta : float) -> void:
 	k+=delta  
 	Gravity.k = k
 
-	
-	if Input.is_action_pressed("left"):
-		rotation.y -= 0.02
-	elif Input.is_action_pressed("right"):
-		rotation.y += 0.02
-
 #func recalculate_positions():
 	#pass
 	#if len(impact_points) != 0:
