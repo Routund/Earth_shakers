@@ -89,16 +89,3 @@ func _physics_process(delta: float) -> void:
 	# Set velocity based off how much gravity, player control, and jump force, would cause it to
 	velocity = perpendicular_movement + gravitational_velocity + jump_velocity
 	move_and_slide()
-		
-	
-func rotate_player():
-	
-	# Change_player_position
-	var relative_up : Vector3 = position_normalized
-	var player_forward : Vector3 = -transform.basis.z
-	var side_axis : Vector3 = relative_up.cross(player_forward)
-	var new_forward : Vector3 = relative_up.cross(side_axis)
-	transform = transform.looking_at(-new_forward,relative_up)
-	#print(angle_between)
-
-	
