@@ -25,7 +25,8 @@ func _process(delta: float) -> void:
 			for i in range(5):
 				bullet_rotation += 3
 				instance = bullet.instantiate()
-				instance.transform = global_transform.rotated(player.transform.basis.y,deg_to_rad(-bullet_rotation+randf_range(-2,2)))
+				instance.transform = global_transform
+				instance.rotation += Vector3(deg_to_rad(randf_range(-3,3)),deg_to_rad(randf_range(-3,3)),deg_to_rad(randf_range(-3,3)))
 				instance.position = global_position
 				player.get_parent().add_child(instance)
 			bullet_rotation = -6

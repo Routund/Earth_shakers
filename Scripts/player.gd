@@ -5,9 +5,9 @@ const SPEED = 5.0
 const SENS = 0.005
 
 var gravitational_velocity : Vector3 = Vector3.ZERO
-var gravity_scale : float = 1
+var gravity_scale : float = 1.5
 var jump_velocity : Vector3 = Vector3.ZERO
-var jump_scale : float = 5
+var jump_scale : float = 7
 var perpendicular_movement : Vector3 = Vector3.ZERO
 
 var direction : Vector3 = Vector3.ZERO
@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 			
 			position = ground_result[0]
 			grounded = true
-			gravity_scale = 1
+			gravity_scale = 2
 			if ground_pounding:
 				Planet.add_impact(position)
 				ground_pounding = false

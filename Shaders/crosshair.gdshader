@@ -8,7 +8,7 @@ void vertex() {
 void fragment() {
 	vec4 color = texture(SCREEN_TEXTURE,SCREEN_UV);
 	vec4 crosshair = texture(cross_hair_image,UV);
-	vec4 invert = vec4(1.0-color.r,1.0-color.g,0.25-color.b,crosshair.a);
+	vec4 invert = vec4(1.0-color.r,0.9-color.g,0.25-color.b,crosshair.a);
 	COLOR = invert;
 	// Called for every pixel the material is visible on.
 }
