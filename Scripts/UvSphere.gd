@@ -17,6 +17,10 @@ var normals = PackedVector3Array()
 var indices = PackedInt32Array()
 
 func _ready():
+	material_override.set("shader_parameter/dampening",Gravity.dampening)
+	material_override.set("shader_parameter/phase_shift",Gravity.phase_shift)
+	material_override.set("shader_parameter/frequency",Gravity.frequency)
+	material_override.set("shader_parameter/height",Gravity.height)
 	randomize()
 
 func add_impact(impact_site : Vector3):
@@ -35,12 +39,6 @@ func add_impact(impact_site : Vector3):
 func _process(delta : float) -> void:
 	k+=delta  
 	Gravity.k = k
-
-	
-	if Input.is_action_pressed("left"):
-		rotation.y -= 0.02
-	elif Input.is_action_pressed("right"):
-		rotation.y += 0.02
 
 #func recalculate_positions():
 	#pass

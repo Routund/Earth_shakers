@@ -5,4 +5,4 @@
 [node name="gun" type="Node3D"]
 
 [node name="UFO" parent="." instance=ExtResource("1_js7et")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
