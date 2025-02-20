@@ -11,7 +11,7 @@ radius = 1.40842
 script = ExtResource("1_sxkrx")
 
 [node name="Plane" parent="." instance=ExtResource("1_kmr38")]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
 
 [node name="Area3D" type="Area3D" parent="."]
 
