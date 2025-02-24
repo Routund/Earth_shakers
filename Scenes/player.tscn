@@ -48,10 +48,10 @@ collide_with_bodies = false
 debug_shape_custom_color = Color(0.855536, 0.880725, 0.226302, 1)
 
 [node name="gun" parent="head/Camera3D" instance=ExtResource("2_qdq0g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.145696, -0.450595, -0.589972)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.332469, -0.450595, -0.806281)
 
 [node name="bullet_spawn" type="Node3D" parent="head/Camera3D/gun"]
-transform = Transform3D(0.996212, 0.0509921, 0.0704383, -0.0408978, 0.989592, -0.137972, -0.0767406, 0.134569, 0.987928, -0.0132457, 0.0605384, -0.013514)
+transform = Transform3D(0.996212, 0.0509921, 0.0704383, -0.0408978, 0.989592, -0.137972, -0.0767406, 0.134569, 0.987928, 0.0147198, 0.144258, -0.137665)
 script = ExtResource("3_q00kt")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]

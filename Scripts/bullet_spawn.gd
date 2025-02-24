@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 			player.get_parent().add_child(instance)
 			shot.emit(0.05)
 		if shotgun:
-			for i in range(5):
+			for i in range(6):
 				bullet_rotation += 3
 				instance = bullet.instantiate()
 				instance.transform = global_transform
