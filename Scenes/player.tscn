@@ -54,6 +54,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.332469, -0.450595, -0.80628
 transform = Transform3D(0.996212, 0.0509921, 0.0704383, -0.0408978, 0.989592, -0.137972, -0.0767406, 0.134569, 0.987928, 0.0147198, 0.144258, -0.137665)
 script = ExtResource("3_q00kt")
 
+[node name="scroll min" type="Timer" parent="head/Camera3D/gun/bullet_spawn"]
+
 [node name="RayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -1)
 hit_back_faces = false
@@ -78,3 +80,4 @@ libraries = {
 
 [connection signal="ground_pounded" from="." to="head/Camera3D" method="_on_player_ground_pounded"]
 [connection signal="shot" from="head/Camera3D/gun/bullet_spawn" to="head/Camera3D" method="_on_bullet_spawn_shot"]
+[connection signal="timeout" from="head/Camera3D/gun/bullet_spawn/scroll min" to="head/Camera3D/gun/bullet_spawn" method="_on_scroll_min_timeout"]

@@ -1,7 +1,7 @@
 extends Node3D
 
-var riffle = false
-var shotgun = true
+var wholesome = -1
+var gun = 0
 var bullet_rotation = -45
 var bullet = load("res://Scenes/bullet.tscn")
 var instance
@@ -14,14 +14,29 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed('scroll'):
+		$"scroll min".start(1)
+		wholesome += 1
+		print(wholesome)
+		if gun >= 1:
+			gun = 0
+		else:
+			gun += 1
+	if Input.is_action_just_pressed('scrolld'):
+		wholesome += 1
+		$"scroll min".start(1)
+		if gun <= 0:
+			gun = 0
+		else:
+			gun -= 1
 	if Input.is_action_just_pressed("shoot"):
-		if riffle:
+		if gun == 0:
 			instance = bullet.instantiate()
 			instance.position = global_position 
 			instance.transform.basis = global_transform.basis
 			player.get_parent().add_child(instance)
 			shot.emit(0.05)
-		if shotgun:
+		if gun == 1:
 			for i in range(6):
 				bullet_rotation += 3
 				instance = bullet.instantiate()
@@ -32,3 +47,7 @@ func _process(delta: float) -> void:
 			bullet_rotation = -6
 			shot.emit(0.05)
 	pass
+
+
+func _on_scroll_min_timeout() -> void:
+	gun -= wholesome
