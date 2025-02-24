@@ -1,0 +1,11 @@
+[gd_resource type="NoiseTexture2D" load_steps=3 format=3 uid="uid://2jdrbtcb1lli"]
+
+[ext_resource type="FastNoiseLite" uid="uid://mb8kkm50vyuy" path="res://Shaders/planet_noise.tres" id="1_0oa38"]
+
+[sub_resource type="Gradient" id="Gradient_06ufk"]
+colors = PackedColorArray(0.674709, 0, 0.276254, 1, 0.532721, 0, 0.0237076, 1)
+
+[resource]
+seamless = true
+color_ramp = SubResource("Gradient_06ufk")
+noise = ExtResource("1_0oa38")

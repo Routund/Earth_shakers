@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 
-const SPEED = 5.0
+const SPEED = 9.0
 const SENS = 0.005
 
 var gravitational_velocity : Vector3 = Vector3.ZERO
@@ -22,10 +22,15 @@ signal ground_pounded(power : float)
 @onready var Planet = get_parent().get_node("Planet")
 
 var grounded : bool = false
+var ground_pound_jump_increase_timer : Timer = Timer.new()
 
+var walk_shake_timer : Timer = Timer.new()
 
 func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	add_child(ground_pound_jump_increase_timer)
+	ground_pound_jump_increase_timer.connect("timeout",reset_ground_pound_jump)
+	add_child(walk_shake_timer)
+	walk_shake_timer.one_shot = true
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -38,9 +43,9 @@ func _physics_process(delta: float) -> void:
 	
 	# If player isn't grounded, increase the amount of velocity due to gravity
 	if !grounded:
-		if Input.is_action_just_pressed("ground_pound") and position.length() > 10:
+		if Input.is_action_just_pressed("ground_pound") and position.length() > 17.5:
 			ground_pounding = true
-			gravity_scale = 6
+			gravity_scale = 16
 			print("Pounding")
 		var accel = Gravity.gravitate(position)
 		gravitational_velocity += -accel[0] * delta * gravity_scale
@@ -53,11 +58,15 @@ func _physics_process(delta: float) -> void:
 			
 			position = ground_result[0]
 			grounded = true
-			gravity_scale = 2
+			gravity_scale = 1.5
 			if ground_pounding:
-				Planet.add_impact(position)
+				Planet.add_impact(position,1)
 				ground_pounding = false
-				ground_pounded.emit(0.25)
+				ground_pounded.emit(0.12)
+				jump_scale = 10
+				ground_pound_jump_increase_timer.start(0.12)
+			else:
+				Planet.add_impact(position,0.1)
 	else:
 		# If player grounded, reset their position to be on top of the planet
 		position = Gravity.check_ground(position + (gravitational_velocity + jump_velocity)*delta)[0]
@@ -66,22 +75,25 @@ func _physics_process(delta: float) -> void:
 	camera_yaw = 0
 	
 	# Let player escape mouse
-	if Input.is_action_just_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
-
-	if direction or camera_yaw !=0 :
+	
+	print(walk_shake_timer.time_left)
+	
+	if direction:
 		perpendicular_movement = (direction.x * transform.basis.x + direction.z * transform.basis.z) * SPEED
-		camera_yaw = 0
+		if walk_shake_timer.time_left == 0 and grounded:
+			Planet.add_impact(position,0.05)
+			walk_shake_timer.start(0.03)
 	else:
 		perpendicular_movement.x = move_toward(perpendicular_movement.x, 0, SPEED)
 		perpendicular_movement.z = move_toward(perpendicular_movement.z, 0, SPEED)
 		perpendicular_movement.y = move_toward(perpendicular_movement.y, 0, SPEED)
 	# Add to jump velocity
 	if Input.is_action_just_pressed("jump") and grounded:
+		Planet.add_impact(position,0.1)
 		jump_velocity += position.normalized() * jump_scale
 		grounded = false
 	
@@ -89,16 +101,6 @@ func _physics_process(delta: float) -> void:
 	# Set velocity based off how much gravity, player control, and jump force, would cause it to
 	velocity = perpendicular_movement + gravitational_velocity + jump_velocity
 	move_and_slide()
-		
-	
-func rotate_player():
-	
-	# Change_player_position
-	var relative_up : Vector3 = position_normalized
-	var player_forward : Vector3 = -transform.basis.z
-	var side_axis : Vector3 = relative_up.cross(player_forward)
-	var new_forward : Vector3 = relative_up.cross(side_axis)
-	transform = transform.looking_at(-new_forward,relative_up)
-	#print(angle_between)
 
-	
+func reset_ground_pound_jump():
+	jump_scale = 7
