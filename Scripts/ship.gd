@@ -1,7 +1,7 @@
 extends Node3D
 
 var health = 25
-var speed = 50
+var speed = 5
 var velocity = Vector3(0,0,0)
 
 # Called when the node enters the scene tree for the first time.
