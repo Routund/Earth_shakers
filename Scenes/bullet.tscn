@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_ijrs3"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_4w0ww"]
-top_radius = 0.05
-bottom_radius = 0.05
-height = 0.5
+top_radius = 0.025
+bottom_radius = 0.025
+height = 0.25
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_os8yo"]
 albedo_color = Color(0.909503, 0.52648, 3.85046e-07, 1)
