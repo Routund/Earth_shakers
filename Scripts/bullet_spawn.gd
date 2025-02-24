@@ -30,5 +30,5 @@ func _process(delta: float) -> void:
 				instance.position = global_position
 				player.get_parent().add_child(instance)
 			bullet_rotation = -6
-			shot.emit(0.2)
+			shot.emit(0.05)
 	pass

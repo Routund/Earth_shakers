@@ -11,9 +11,11 @@ radius = 1.40842
 script = ExtResource("1_sxkrx")
 
 [node name="Plane" parent="." instance=ExtResource("1_kmr38")]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
 
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("CylinderShape3D_vppyn")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]

@@ -5,14 +5,25 @@ var reset_flag = 0
 
 var rotation_x_old = 0
 var rotation_y_old = 0
+
+var camera_locking = true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
+	if Input.is_action_just_pressed("ui_cancel"):
+		if camera_locking:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		camera_locking = !camera_locking
+	
 	if shake!=0:
 		rotation.x = rotation_x_old + randf_range(-1,1) * shake
 		rotation.y = rotation_y_old + randf_range(-1,1) * shake
@@ -22,6 +33,7 @@ func _process(delta: float) -> void:
 		rotation_x_old = 0
 		rotation_y_old = 0
 		reset_flag = false
+	transform.orthonormalized()
 	pass
 
 

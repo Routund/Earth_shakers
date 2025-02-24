@@ -1,11 +1,11 @@
 extends Node
 
 const e : float = 2.718281;
-const dampening : float = 2.2;
+const dampening : float = 3.2;
 const phase_shift : float = PI/4.0;
-const frequency : float = 18.0;
+const frequency : float = 22.0;
 const height : float = 0.53;
-const radius : float = 8.0;
+const radius : float = 15.0;
 
 var impact_points = []
 var k = 0
@@ -33,8 +33,9 @@ func check_ground(place : Vector3):
 	for impact_point in impact_points:
 		# Acos gets angle between vertice and impact, sin calculates a wave for the vertice to follow, and where it is given the angle
 		var angle = acos(vec_normal.dot(impact_point[0]))
-		var x = abs(0.2 + angle -  k + impact_point[1])
-		additive -= height * pow(e,-dampening * x) * (cos(frequency * x + phase_shift) + sin(frequency*x + phase_shift))
+		var x = abs(0.4 + angle -  k + impact_point[1])
+		additive -= impact_point[2] * height * pow(e,-dampening * x) * (cos(frequency * x + phase_shift) + sin(frequency*x + phase_shift))
+	
 	var dist_from_center = radius + additive
 	var place_dist = place.length()
 	
