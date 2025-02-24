@@ -23,18 +23,23 @@ func _ready():
 	material_override.set("shader_parameter/height",Gravity.height)
 	randomize()
 
-func add_impact(impact_site : Vector3):
+func add_impact(impact_site : Vector3, strength : float):
 	impact_site = impact_site.normalized()
-	impact_points.append([impact_site,k])
+	impact_points.append([impact_site,k,strength])
 	print("adding")
 	if len(impact_points)==100:
 		impact_points.pop_at(0)
 	Gravity.impact_points = impact_points
 	var impact_image = Image.create_empty(impact_points.size(),1,false,Image.FORMAT_RGBAF)
+	var impact_meta = Image.create_empty(impact_points.size(),1,false,Image.FORMAT_RF)
 	for i in range(len(impact_points)):
 		impact_image.set_pixel(i,0,Color(impact_points[i][0].x/2 + 0.5,impact_points[i][0].y/2 + 0.5,impact_points[i][0].z/2 + 0.5,impact_points[i][1]/1000))
+		impact_meta.set_pixel(i,0,Color(impact_points[i][2],0,0))
 	material_override.set("shader_parameter/impact_data",ImageTexture.create_from_image(impact_image))
+	material_override.set("shader_parameter/impact_meta_data",ImageTexture.create_from_image(impact_meta))
 	material_override.set("shader_parameter/num_impacts",len(impact_points))
+	impact_image.save_png("impact_image.png")
+	impact_meta.save_png("impact_meta.png")
 
 func _process(delta : float) -> void:
 	k+=delta  
