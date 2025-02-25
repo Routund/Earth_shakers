@@ -44,7 +44,7 @@ func _on_bullet_spawn_shot(power : float) -> void:
 	
 	shake = power
 	reset_flag = true
-	# Set what old rotation is to beafter shake is finished
+	# Set what old rotation is to be after shake is finished
 	rotation_x_old = rotation.x
 	rotation_y_old = rotation.y
 	var tween = create_tween()

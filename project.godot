@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Earth Shakers"
-run/main_scene="res://Scenes/test.tscn"
+run/main_scene="res://Scenes/planet_level.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
 
@@ -20,9 +20,14 @@ config/icon="res://Sprites/icon.svg"
 Gravity="*res://Scripts/Gravity.gd"
 Global="*res://global.gd"
 
+[display]
+
+window/ios/allow_high_refresh_rate=false
+
 [global_group]
 
 bullet="this is for bullets"
+Player=""
 
 [input]
 
