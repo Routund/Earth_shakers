@@ -1,6 +1,6 @@
 extends Node3D
 
-var wholesome = -1
+var scrolltick = 0
 var gun = 0
 var bullet_rotation = -45
 var bullet = load("res://Scenes/bullet.tscn")
@@ -15,20 +15,13 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed('scroll'):
-		$"scroll min".start(1)
-		wholesome += 1
-		print(wholesome)
-		if gun >= 1:
-			gun = 0
-		else:
-			gun += 1
+		scrolltick += 1
+		gun += 1
+		$scroll.start(0.5)
 	if Input.is_action_just_pressed('scrolld'):
-		wholesome += 1
-		$"scroll min".start(1)
-		if gun <= 0:
-			gun = 0
-		else:
-			gun -= 1
+		scrolltick += 1
+		gun -= 1
+		$scrolld.start(0.5)
 	if Input.is_action_just_pressed("shoot"):
 		if gun == 0:
 			instance = bullet.instantiate()
@@ -46,8 +39,17 @@ func _process(delta: float) -> void:
 				player.get_parent().add_child(instance)
 			bullet_rotation = -6
 			shot.emit(0.05)
-	pass
 
 
-func _on_scroll_min_timeout() -> void:
-	gun -= wholesome
+func _on_scroll_timeout() -> void:
+	gun -= (scrolltick-1)
+	scrolltick = 0
+	if gun > 1:
+		gun = 0
+
+
+func _on_scrolld_timeout() -> void:
+	gun += (scrolltick-1)
+	scrolltick = 0
+	if gun < 0:
+		gun = 1
