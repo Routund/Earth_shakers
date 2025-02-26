@@ -1,7 +1,7 @@
 extends Node3D
 
+var cooldown = false
 var scrolltick = 0
-var gun = 0
 var bullet_rotation = -45
 var bullet = load("res://Scenes/bullet.tscn")
 var instance
@@ -16,20 +16,22 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed('scroll'):
 		scrolltick += 1
-		gun += 1
-		$scroll.start(0.5)
+		Global.gun += 1
+		$scroll.start(0.1)
 	if Input.is_action_just_pressed('scrolld'):
 		scrolltick += 1
-		gun -= 1
-		$scrolld.start(0.5)
-	if Input.is_action_just_pressed("shoot"):
-		if gun == 0:
+		Global.gun -= 1
+		$scrolld.start(0.1)
+	if Input.is_action_pressed("shoot") and not cooldown:
+		if Global.gun == 0:
 			instance = bullet.instantiate()
-			instance.position = global_position 
+			instance.position = $"../../ak_spawn".global_position 
 			instance.transform.basis = global_transform.basis
 			player.get_parent().add_child(instance)
 			shot.emit(0.05)
-		if gun == 1:
+			cooldown = true
+			$shoot_cooldown.start(0.1)
+		elif Global.gun == 1:
 			for i in range(6):
 				bullet_rotation += 3
 				instance = bullet.instantiate()
@@ -39,17 +41,23 @@ func _process(delta: float) -> void:
 				player.get_parent().add_child(instance)
 			bullet_rotation = -6
 			shot.emit(0.05)
+			cooldown = true
+			$shoot_cooldown.start(1)
 
 
 func _on_scroll_timeout() -> void:
-	gun -= (scrolltick-1)
+	Global.gun -= (scrolltick-1)
 	scrolltick = 0
-	if gun > 1:
-		gun = 0
+	if Global.gun > 1:
+		Global.gun = 0
 
 
 func _on_scrolld_timeout() -> void:
-	gun += (scrolltick-1)
+	Global.gun += (scrolltick-1)
 	scrolltick = 0
-	if gun < 0:
-		gun = 1
+	if Global.gun < 0:
+		Global.gun = 1
+
+
+func _on_shoot_cooldown_timeout() -> void:
+	cooldown = false
