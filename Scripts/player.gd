@@ -78,7 +78,6 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
-
 	if direction:
 		perpendicular_movement = (direction.x * transform.basis.x + direction.z * transform.basis.z) * SPEED
 		if walk_shake_timer.time_left == 0 and grounded:
