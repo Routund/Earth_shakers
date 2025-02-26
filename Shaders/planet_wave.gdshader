@@ -43,7 +43,7 @@ void vertex() {
 		vec4 impact_meta = texture(impact_meta_data, coords);
 		impact_point.xyz = (impact_point.xyz - vec3(0.5,0.5,0.5)) * 2.0;
 		float angle = acos(dot(impact_point.xyz,vec_normal));
-		float x = abs(0.75 + angle - (outside_time) + impact_point.a * 900.0);
+		float x = abs(0.5 + angle - (outside_time) + impact_point.a * 900.0);
 		additive -= height  * impact_meta.r * pow(e,-dampening * x) * (cos(frequency * x + phase_shift) + sin(frequency*x + phase_shift));
 		i+=1;
 	}

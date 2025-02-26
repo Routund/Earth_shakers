@@ -33,7 +33,7 @@ func check_ground(place : Vector3):
 	for impact_point in impact_points:
 		# Acos gets angle between vertice and impact, sin calculates a wave for the vertice to follow, and where it is given the angle
 		var angle = acos(vec_normal.dot(impact_point[0]))
-		var x = abs(0.75 + angle -  k + impact_point[1])
+		var x = abs(0.5 + angle -  k + impact_point[1])
 		additive -= impact_point[2] * height * pow(e,-dampening * x) * (cos(frequency * x + phase_shift) + sin(frequency*x + phase_shift))
 	
 	var dist_from_center = radius + additive

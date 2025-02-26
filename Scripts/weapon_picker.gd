@@ -4,16 +4,23 @@ var old_transform : Transform3D
 var moving : bool = true
 var k = 0
 
-var gun = 0;
+var gun = 0
+
+var model_child
 
 var guns = [
-	"res://Sculptures/"
+	"res://Sculptures/Snubnose.glb"
 ]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
 	gun = randi_range(0,0)
+	var model = load(guns[0]).instantiate()
+	model.scale = Vector3(0.25,0.25,0.25)
+	model.position.y += 1.0
+	add_child(model)
+	model_child = get_child(2)
 	pass # Replace with function body.
 
 
@@ -27,6 +34,8 @@ func _process(delta: float) -> void:
 	
 	position = Gravity.check_ground(position)[0]
 	position = position.normalized() * (position.length() - 0.5)
+	
+	model_child.rotation.y += delta * 8
 	pass
 
 
