@@ -33,7 +33,7 @@ func check_ground(place : Vector3):
 	for impact_point in impact_points:
 		# Acos gets angle between vertice and impact, sin calculates a wave for the vertice to follow, and where it is given the angle
 		var angle = acos(vec_normal.dot(impact_point[0]))
-		var x = abs(0.4 + angle -  k + impact_point[1])
+		var x = abs(0.5 + angle -  k + impact_point[1])
 		additive -= impact_point[2] * height * pow(e,-dampening * x) * (cos(frequency * x + phase_shift) + sin(frequency*x + phase_shift))
 	
 	var dist_from_center = radius + additive
@@ -51,7 +51,7 @@ func rotate_object(object_position : Vector3, object_transform : Transform3D, mi
 	var object_forward : Vector3 = -object_transform.basis.z
 	var side_axis : Vector3 = relative_up.cross(object_forward)
 	var new_forward : Vector3 = relative_up.cross(side_axis)
-	var new_transform = object_transform.looking_at(-new_forward,relative_up)
+	var new_transform : Transform3D = object_transform.looking_at(-new_forward,relative_up)
 	#print(angle_between)
 
 	

@@ -46,7 +46,6 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("ground_pound") and position.length() > 17.5:
 			ground_pounding = true
 			gravity_scale = 16
-			print("Pounding")
 		var accel = Gravity.gravitate(position)
 		gravitational_velocity += -accel[0] * delta * gravity_scale
 		var ground_result = Gravity.check_ground(position + velocity * delta)
@@ -79,9 +78,6 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
-	
-	print(walk_shake_timer.time_left)
-	
 	if direction:
 		perpendicular_movement = (direction.x * transform.basis.x + direction.z * transform.basis.z) * SPEED
 		if walk_shake_timer.time_left == 0 and grounded:

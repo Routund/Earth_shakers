@@ -27,6 +27,7 @@ mesh = SubResource("CylinderMesh_4w0ww")
 surface_material_override/0 = SubResource("StandardMaterial3D_os8yo")
 
 [node name="Timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Area3D" type="Area3D" parent="." groups=["bullet"]]
 collision_mask = 2
@@ -36,4 +37,8 @@ monitoring = false
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CylinderShape3D_6bnh4")
 
+[node name="Timer2" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

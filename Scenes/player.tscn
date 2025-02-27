@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cdq77svver7c0"]
+[gd_scene load_steps=7 format=3 uid="uid://cdq77svver7c0"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_5rkx4"]
 [ext_resource type="Script" path="res://Scripts/player_camera.gd" id="2_af3ny"]
@@ -10,22 +10,7 @@ radius = 0.580856
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qy76v"]
 
-[sub_resource type="Animation" id="Animation_dr358"]
-resource_name = "camera_shake"
-tracks/0/type = "rotation_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("head/Camera3D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array()
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_d078q"]
-_data = {
-"camera_shake": SubResource("Animation_dr358")
-}
-
-[node name="player" type="CharacterBody3D"]
+[node name="player" type="CharacterBody3D" groups=["Player"]]
 rotation_edit_mode = 2
 script = ExtResource("1_5rkx4")
 
@@ -48,11 +33,23 @@ collide_with_bodies = false
 debug_shape_custom_color = Color(0.855536, 0.880725, 0.226302, 1)
 
 [node name="gun" parent="head/Camera3D" instance=ExtResource("2_qdq0g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.332469, -0.450595, -0.806281)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125331, -0.454754, -0.80466)
 
 [node name="bullet_spawn" type="Node3D" parent="head/Camera3D/gun"]
-transform = Transform3D(0.996212, 0.0509921, 0.0704383, -0.0408978, 0.989592, -0.137972, -0.0767406, 0.134569, 0.987928, 0.0147198, 0.144258, -0.137665)
+transform = Transform3D(0.994819, 0.0536849, 0.0863286, -0.0497132, 0.997633, -0.0475175, -0.0886752, 0.0429797, 0.995133, 0.0147198, 0.144258, -0.137665)
 script = ExtResource("3_q00kt")
+
+[node name="scroll" type="Timer" parent="head/Camera3D/gun/bullet_spawn"]
+one_shot = true
+
+[node name="scrolld" type="Timer" parent="head/Camera3D/gun/bullet_spawn"]
+one_shot = true
+
+[node name="shoot_cooldown" type="Timer" parent="head/Camera3D/gun/bullet_spawn"]
+one_shot = true
+
+[node name="ak_spawn" type="Node3D" parent="head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0116471, -0.805)
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -1)
@@ -71,10 +68,8 @@ debug_shape_custom_color = Color(1, 0, 0.215686, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_qy76v")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_d078q")
-}
-
 [connection signal="ground_pounded" from="." to="head/Camera3D" method="_on_player_ground_pounded"]
 [connection signal="shot" from="head/Camera3D/gun/bullet_spawn" to="head/Camera3D" method="_on_bullet_spawn_shot"]
+[connection signal="timeout" from="head/Camera3D/gun/bullet_spawn/scroll" to="head/Camera3D/gun/bullet_spawn" method="_on_scroll_timeout"]
+[connection signal="timeout" from="head/Camera3D/gun/bullet_spawn/scrolld" to="head/Camera3D/gun/bullet_spawn" method="_on_scrolld_timeout"]
+[connection signal="timeout" from="head/Camera3D/gun/bullet_spawn/shoot_cooldown" to="head/Camera3D/gun/bullet_spawn" method="_on_shoot_cooldown_timeout"]
