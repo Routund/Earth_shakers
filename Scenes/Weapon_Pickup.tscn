@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/weapon_picker.gd" id="1_5cuj0"]
 [ext_resource type="Shader" path="res://Shaders/Weapon_Pickup.gdshader" id="1_l7r1f"]
-[ext_resource type="PackedScene" uid="uid://hinpugndrxbb" path="res://Sculptures/Snubnose(march).glb" id="3_j8xu7"]
+[ext_resource type="PackedScene" uid="uid://wh61ihr14u7f" path="res://Sculptures/Snubnose.glb" id="3_3rj4n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_065kg"]
 render_priority = 0
@@ -35,7 +35,6 @@ mesh = SubResource("CylinderMesh_kd3ic")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12652, 0)
 shape = SubResource("CylinderShape3D_6styw")
 
-[node name="Snubnose(march)" parent="StaticBody3D" instance=ExtResource("3_j8xu7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.874891)
+[node name="Snubnose" parent="." instance=ExtResource("3_3rj4n")]
 
 [connection signal="body_entered" from="StaticBody3D" to="." method="_on_static_body_3d_body_entered"]
