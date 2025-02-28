@@ -9,18 +9,19 @@ var gun = 0
 var model_child
 
 var guns = [
-	"res://Sculptures/Snubnose(march).glb"
+	"res://Sculptures/Snubnose.glb"
 ]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
-	gun = randi_range(0,0)
+	gun = randi_range(0,2)
 	var model = load(guns[0]).instantiate()
 	model.scale = Vector3(0.25,0.25,0.25)
 	model.position.y += 1.0
 	add_child(model)
 	model_child = get_child(2)
+	model_child.position.y += 0.2
 	pass # Replace with function body.
 
 
@@ -41,5 +42,6 @@ func _process(delta: float) -> void:
 
 func _on_static_body_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("Player"):
+		Global.gun = gun
 		queue_free()
 	pass # Replace with function body.
