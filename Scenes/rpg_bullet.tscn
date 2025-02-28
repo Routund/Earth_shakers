@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxwc7tx3sskag"]
+
+[ext_resource type="Script" path="res://Scenes/rpg_bullet.gd" id="1_fw7d6"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_6riti"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_stuqy"]
+albedo_color = Color(0.909503, 0.52648, 3.85046e-07, 1)
+emission_enabled = true
+emission = Color(0.843336, 0.322316, 0.114, 1)
+emission_energy_multiplier = 5.28
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_oydvu"]
+radius = 0.311143
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_15168"]
+
+[node name="rpg_bullet" type="CharacterBody3D"]
+script = ExtResource("1_fw7d6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.293144, 2.76057e-10, -0.405051, -0.405051, 3.05805e-08, 0.293144, 2.49352e-08, 0.5, -1.77054e-08, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_6riti")
+surface_material_override/0 = SubResource("StandardMaterial3D_stuqy")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Area3D" type="Area3D" parent="." groups=["bullet"]]
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("SphereShape3D_oydvu")
+
+[node name="explosion" type="Area3D" parent="." groups=["bullet"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="explosion" groups=["bullet"]]
+transform = Transform3D(2.10759, 0, 0, 0, 2.10759, 0, 0, 0, 2.10759, 0, 0, 0)
+shape = SubResource("SphereShape3D_15168")
