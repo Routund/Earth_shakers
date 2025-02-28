@@ -42,7 +42,7 @@ func _process(delta: float) -> void:
 			bullet_rotation = -6
 			shot.emit(0.05)
 			cooldown = true
-			$shoot_cooldown.start(1)
+			$shoot_cooldown.start(0.75)
 		elif Global.gun == 2: #set ray cast guns damage in the enemy code by using Global.gun
 			$"../RayCast3D".enabled = true
 			await get_tree().create_timer(0.1).timeout

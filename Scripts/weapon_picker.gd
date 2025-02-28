@@ -9,7 +9,7 @@ var gun = 0
 var model_child
 
 var guns = [
-	"res://Sculptures/Snubnose(march).glb"
+	"res://Sculptures/Snubnose.glb"
 ]
 
 # Called when the node enters the scene tree for the first time.

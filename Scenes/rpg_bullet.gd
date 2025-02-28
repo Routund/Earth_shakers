@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 		$explosion/CollisionShape3D.disabled = false
 		await get_tree().create_timer(1).timeout
 		queue_free()
-	velocity = speed * -transform.basis.z
+	velocity = speed * -transform.basis.z * (Gravity.gravitate(position)[0]*50)
 	move_and_slide()
 
 func _on_timer_timeout():
