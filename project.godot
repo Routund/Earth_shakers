@@ -28,6 +28,7 @@ window/ios/allow_high_refresh_rate=false
 
 bullet="this is for bullets"
 Player=""
+enemy_bullet=""
 
 [input]
 
