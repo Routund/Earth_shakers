@@ -4,6 +4,7 @@ var cooldown = false
 var scrolltick = 0
 var bullet_rotation = -45
 var bullet = load("res://Scenes/bullet.tscn")
+var rocket = load('res://Scenes/rpg_bullet.tscn')
 var instance
 var equipped = true
 signal shot(power : float)
@@ -25,11 +26,9 @@ func _process(delta: float) -> void:
 		$scrolld.start(0.1)
 	if Input.is_action_pressed("shoot") and not cooldown:
 		if Global.gun == 0:
-			instance = bullet.instantiate()
-			instance.position = $"../../ak_spawn".global_position 
-			instance.transform.basis = global_transform.basis
-			player.get_parent().add_child(instance)
-			shot.emit(0.05)
+			$"../RayCast3D".enabled = true
+			await get_tree().create_timer(0.1).timeout
+			$"../RayCast3D".enabled = false
 			cooldown = true
 			$shoot_cooldown.start(0.1)
 		elif Global.gun == 1:
@@ -43,13 +42,27 @@ func _process(delta: float) -> void:
 			bullet_rotation = -6
 			shot.emit(0.05)
 			cooldown = true
+			$shoot_cooldown.start(0.75)
+		elif Global.gun == 2: #set ray cast guns damage in the enemy code by using Global.gun
+			$"../RayCast3D".enabled = true
+			await get_tree().create_timer(0.1).timeout
+			$"../RayCast3D".enabled = false
+			cooldown = true
+			$shoot_cooldown.start(2)
+		elif Global.gun == 3: 
+			instance = rocket.instantiate()
+			instance.transform = global_transform
+			instance.position = global_position
+			player.get_parent().add_child(instance)
+			shot.emit(0.05)
+			cooldown = true
 			$shoot_cooldown.start(1)
 
 
 func _on_scroll_timeout() -> void:
 	Global.gun -= (scrolltick-1)
 	scrolltick = 0
-	if Global.gun > 1:
+	if Global.gun > 3:
 		Global.gun = 0
 
 
@@ -57,7 +70,7 @@ func _on_scrolld_timeout() -> void:
 	Global.gun += (scrolltick-1)
 	scrolltick = 0
 	if Global.gun < 0:
-		Global.gun = 1
+		Global.gun = 3
 
 
 func _on_shoot_cooldown_timeout() -> void:
