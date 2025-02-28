@@ -5,11 +5,12 @@ uniform sampler2D impact_data;
 uniform sampler2D impact_meta_data;
 uniform int num_impacts;
 uniform float radius;
+uniform float outside_time = 0.0;
 
 uniform float e = 2.718281;
-uniform float dampening = 1.8;
-uniform float phase_shift = 0;
-uniform float frequency = 18.0;
+uniform float dampening = 3.2;
+uniform float phase_shift = 0.785398163;
+uniform float frequency = 22.0;
 uniform float height = 0.13;
 
 uniform vec4 albedo : source_color;
@@ -37,17 +38,17 @@ void vertex() {
 	vec3 vec_normal = normalize(VERTEX.xyz);
 
 	while (i < num_impacts){
-		vec2 coords = vec2(1.0/float(num_impacts) * (float(i) + 0.5),0.75);
+		vec2 coords = vec2(1.0/float(num_impacts) * (float(i) + 0.5),0);
 		vec4 impact_point = texture(impact_data, coords);
 		vec4 impact_meta = texture(impact_meta_data, coords);
 		impact_point.xyz = (impact_point.xyz - vec3(0.5,0.5,0.5)) * 2.0;
-		float angle = acos(dot(vec_normal,impact_point.xyz));
-		float x = max(0,abs(0.75 + angle - TIME + impact_point.a * 1000.0));
+		float angle = acos(dot(impact_point.xyz,vec_normal));
+		float x = abs(0.5 + angle - (outside_time) + impact_point.a * 900.0);
 		additive -= height  * impact_meta.r * pow(e,-dampening * x) * (cos(frequency * x + phase_shift) + sin(frequency*x + phase_shift));
 		i+=1;
 	}
 
-	VERTEX = vec_normal * (length(VERTEX) + additive * 1.5);
+	VERTEX = vec_normal * (length(VERTEX) + additive);
 
 	UV = UV * uv1_scale.xy + uv1_offset.xy;
 }

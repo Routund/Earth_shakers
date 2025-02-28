@@ -6,6 +6,7 @@ var bullet_rotation = -45
 var bullet = load("res://Scenes/bullet.tscn")
 var rocket = load('res://Scenes/rpg_bullet.tscn')
 var instance
+var equipped = true
 signal shot(power : float)
 @onready var player = $"../../../.."
 # Called when the node enters the scene tree for the first time.
