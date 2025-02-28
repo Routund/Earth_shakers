@@ -7,7 +7,7 @@ var radius : float = 15
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
 func spawn_ufo():
 	var rng = RandomNumberGenerator.new()
@@ -16,7 +16,7 @@ func spawn_ufo():
 	var yv = rng.randf_range(-1,1)
 	var zv = rng.randf_range(-1,1)
 	var selected_vect = Vector3(xv,yv,zv)
-	add_ufo.position = selected_vect.normalized() * radius * 1.20 #1.25 is how far off the planet it is
+	add_ufo.position = selected_vect.normalized() * radius * 1.25 #1.25 is how far off the planet it is
 	add_child(add_ufo)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,7 +30,8 @@ func spawn_ship():
 	var yv = rng.randf_range(-1,1)
 	var zv = rng.randf_range(-1,1)
 	var selected_vect = Vector3(xv,yv,zv)
-	add_ship.position = selected_vect.normalized() * radius * 1.05 #1.15 is how far off the planet it is
+	add_ship.position = selected_vect.normalized() * radius * 1.4 #1.15 is how far off the planet it is
+	
 	add_child(add_ship)
 
 func _on_timer_timeout() -> void:

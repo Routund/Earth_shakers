@@ -11,6 +11,7 @@ height = 0.4
 radius = 1.0
 
 [node name="UFO" type="Node3D"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="Node3D" type="Node3D" parent="."]
 script = ExtResource("1_e0gmj")

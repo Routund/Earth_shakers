@@ -23,6 +23,7 @@ Global="*res://global.gd"
 [global_group]
 
 bullet="this is for bullets"
+enemy_bullet=""
 
 [input]
 
