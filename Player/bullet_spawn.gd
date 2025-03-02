@@ -34,7 +34,7 @@ func _process(_delta: float) -> void:
 			cooldown = true
 			if Global.client_gun == 0:
 				shoot_pistol.rpc()
-				$shoot_cooldown.start(0.1)
+				$shoot_cooldown.start(0.25)
 			elif Global.client_gun == 1:
 				shoot_shotgun.rpc(multiplayer.get_unique_id())
 				shot.emit(0.05)
@@ -43,12 +43,16 @@ func _process(_delta: float) -> void:
 				shoot_rpg.rpc(multiplayer.get_unique_id())
 				shot.emit(0.05)
 				$shoot_cooldown.start(1)
+			elif Global.client_gun == 3: #this is a sniper change the damage values for this
+				shoot_pistol.rpc()
+				$shoot_cooldown.start(2)
+			
 
 
 func _on_scroll_timeout() -> void:
 	Global.client_gun -= (scrolltick-1)
 	scrolltick = 0
-	if Global.client_gun > 2:
+	if Global.client_gun > 3:
 		Global.client_gun = 0
 
 
@@ -56,7 +60,7 @@ func _on_scrolld_timeout() -> void:
 	Global.client_gun += (scrolltick-1)
 	scrolltick = 0
 	if Global.client_gun < 0:
-		Global.client_gun = 2
+		Global.client_gun = 3
 
 func _on_shoot_cooldown_timeout() -> void:
 	cooldown = false

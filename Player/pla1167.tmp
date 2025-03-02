@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=3 uid="uid://cdq77svver7c0"]
+
+[ext_resource type="Script" path="res://Player/player.gd" id="1_5rkx4"]
+[ext_resource type="Script" path="res://Player/player_camera.gd" id="2_af3ny"]
+[ext_resource type="PackedScene" uid="uid://ddue75lsffifg" path="res://Player_Weapons/gun.tscn" id="2_qdq0g"]
+[ext_resource type="Script" path="res://Player/bullet_spawn.gd" id="3_q00kt"]
+[ext_resource type="Script" path="res://Player_Weapons/bullet_cast.gd" id="5_83orv"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_qy76v"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1yi3u"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:basis")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_js81g"]
+radius = 0.4
+height = 1.5
+
+[node name="player" type="CharacterBody3D" groups=["Player"]]
+rotation_edit_mode = 2
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_5rkx4")
+
+[node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.841788, 0)
+
+[node name="Camera3D" type="Camera3D" parent="head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.565727, 0)
+rotation_edit_mode = 2
+script = ExtResource("2_af3ny")
+
+[node name="Camera_RayCast" type="RayCast3D" parent="head/Camera3D"]
+visible = false
+target_position = Vector3(0, 0, -1)
+hit_back_faces = false
+collide_with_bodies = false
+debug_shape_custom_color = Color(0.855536, 0.880725, 0.226302, 1)
+
+[node name="gun" parent="head/Camera3D" instance=ExtResource("2_qdq0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125331, -0.454754, -0.80466)
+
+[node name="bullet_spawn" type="Node3D" parent="head/Camera3D/gun"]
+transform = Transform3D(0.994819, 0.0536849, 0.0863286, -0.0497132, 0.997633, -0.0475175, -0.0886752, 0.0429797, 0.995133, 0.0147198, 0.144258, -0.137665)
+script = ExtResource("3_q00kt")
+
+[node name="scroll" type="Timer" parent="head/Camera3D/gun/bullet_spawn"]
+one_shot = true
+
+[node name="scrolld" type="Timer" parent="head/Camera3D/gun/bullet_spawn"]
+one_shot = true
+
+[node name="shoot_cooldown" type="Timer" parent="head/Camera3D/gun/bullet_spawn"]
+one_shot = true
+
+[node name="Bullet_cast" type="RayCast3D" parent="head/Camera3D/gun" groups=["bullet"]]
+transform = Transform3D(0.999986, 9.13848e-06, 0.00523596, 0, 0.999998, -0.00174533, -0.00523596, 0.0017453, 0.999985, 0.0124277, 0.157218, 0)
+enabled = false
+target_position = Vector3(0, 0, -100)
+collide_with_areas = true
+script = ExtResource("5_83orv")
+
+[node name="ak_spawn" type="Node3D" parent="head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0116471, -0.805)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_qy76v")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1yi3u")
+
+[node name="Area3D" type="Area3D" parent="." groups=["Player"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_js81g")
+
+[connection signal="ground_pounded" from="." to="head/Camera3D" method="_on_player_ground_pounded"]
+[connection signal="shot" from="head/Camera3D/gun/bullet_spawn" to="head/Camera3D" method="_on_bullet_spawn_shot"]
+[connection signal="timeout" from="head/Camera3D/gun/bullet_spawn/scroll" to="head/Camera3D/gun/bullet_spawn" method="_on_scroll_timeout"]
+[connection signal="timeout" from="head/Camera3D/gun/bullet_spawn/scrolld" to="head/Camera3D/gun/bullet_spawn" method="_on_scrolld_timeout"]
+[connection signal="timeout" from="head/Camera3D/gun/bullet_spawn/shoot_cooldown" to="head/Camera3D/gun/bullet_spawn" method="_on_shoot_cooldown_timeout"]
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
