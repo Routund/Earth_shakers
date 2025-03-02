@@ -11,24 +11,28 @@ config_version=5
 [application]
 
 config/name="Earth Shakers"
-run/main_scene="res://Scenes/planet_level.tscn"
+run/main_scene="res://Planet/planet_level.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://Sprites/icon.svg"
+config/icon="res://icon.svg"
 
 [autoload]
 
-Gravity="*res://Scripts/Gravity.gd"
-Global="*res://global.gd"
+Gravity="*res://Planet/Gravity.gd"
+Global="*res://Globals/global.gd"
+MultiplayerManager="*res://Globals/multiplayer_manager.gd"
 
 [display]
 
+window/stretch/mode="canvas_items"
 window/ios/allow_high_refresh_rate=false
 
 [global_group]
 
 bullet="this is for bullets"
 Player=""
+<<<<<<<HEADPlayer=""
 enemy_bullet=""
+enemy=""
 
 [input]
 

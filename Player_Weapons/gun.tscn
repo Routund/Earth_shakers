@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddue75lsffifg"]
+
+[ext_resource type="PackedScene" uid="uid://wh61ihr14u7f" path="res://Player_Weapons/Snubnose.glb" id="1_qh1ua"]
+
+[node name="gun" type="Node3D"]
+
+[node name="Snubnose" parent="." instance=ExtResource("1_qh1ua")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[editable path="Snubnose"]

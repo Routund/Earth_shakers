@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://wloqstrc21j3"]
+
+[ext_resource type="Script" path="res://UI/Multiplayer_Menu.gd" id="1_cg6ly"]
+
+[node name="MainMenu" type="Node3D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_cg6ly")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 263.0
+
+[node name="Host" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Host
+"
+
+[node name="Join" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Join"
+
+[node name="Start" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Start"
+
+[connection signal="button_up" from="CanvasLayer/Control/HBoxContainer/Host" to="CanvasLayer/Control" method="_on_host_button_up"]
+[connection signal="button_up" from="CanvasLayer/Control/HBoxContainer/Join" to="CanvasLayer/Control" method="_on_join_button_up"]
+[connection signal="button_up" from="CanvasLayer/Control/HBoxContainer/Start" to="CanvasLayer/Control" method="_on_start_button_up"]

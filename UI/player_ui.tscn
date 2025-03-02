@@ -1,0 +1,87 @@
+[gd_scene load_steps=10 format=3 uid="uid://bpu2fy6m0w77n"]
+
+[ext_resource type="Shader" path="res://UI/crosshair.gdshader" id="1_obp01"]
+[ext_resource type="Texture2D" uid="uid://bnrpe2d7aqte0" path="res://UI/Crosshair.png" id="2_yd3dd"]
+[ext_resource type="Script" path="res://UI/health_bar.gd" id="3_l0dhm"]
+[ext_resource type="Texture2D" uid="uid://c1r4y5jkm1isu" path="res://UI/health_bar_back_glass.png" id="4_kd63n"]
+[ext_resource type="Shader" path="res://UI/health.gdshader" id="5_6xdqn"]
+[ext_resource type="Texture2D" uid="uid://c8qpeij0pydfr" path="res://UI/health_bar_back_health.png" id="6_pu5lb"]
+[ext_resource type="Texture2D" uid="uid://y53j35p1dxd2" path="res://UI/health_bar_front_glass.png" id="7_1dvjf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_logwr"]
+shader = ExtResource("1_obp01")
+shader_parameter/cross_hair_image = ExtResource("2_yd3dd")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ewh0"]
+shader = ExtResource("5_6xdqn")
+shader_parameter/level = null
+shader_parameter/health_meter = ExtResource("6_pu5lb")
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -575.5
+offset_top = -324.0
+offset_right = 575.5
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer"]
+material = SubResource("ShaderMaterial_logwr")
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("2_yd3dd")
+expand_mode = 2
+
+[node name="Health_Bar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_l0dhm")
+
+[node name="Back_Glass" type="TextureRect" parent="Health_Bar"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = 293.0
+offset_right = 67.0
+offset_bottom = 613.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 2
+size_flags_vertical = 10
+texture = ExtResource("4_kd63n")
+
+[node name="Health_meter" type="TextureRect" parent="Health_Bar"]
+material = SubResource("ShaderMaterial_5ewh0")
+layout_mode = 0
+offset_left = 15.0
+offset_top = 313.0
+offset_right = 87.0
+offset_bottom = 633.0
+pivot_offset = Vector2(-1, 320)
+texture = ExtResource("6_pu5lb")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Front_Glass" type="TextureRect" parent="Health_Bar"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 313.0
+offset_right = 87.0
+offset_bottom = 633.0
+texture = ExtResource("7_1dvjf")
