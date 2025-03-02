@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dymba2b6oxlmo"]
+
+[ext_resource type="PackedScene" uid="uid://by68iatp3cc3h" path="res://Enemies/Ship/Plane.glb" id="1_kmr38"]
+[ext_resource type="Script" path="res://Enemies/Ship/ship.gd" id="1_sxkrx"]
+[ext_resource type="Script" path="res://Enemies/Ship/ship_bullet_spawn.gd" id="3_7040f"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_vppyn"]
+height = 0.394085
+radius = 1.40842
+
+[node name="Ship" type="Node3D"]
+script = ExtResource("1_sxkrx")
+
+[node name="Plane" parent="." instance=ExtResource("1_kmr38")]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="." groups=["enemy"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_vppyn")
+
+[node name="bullet_spawn" type="Node3D" parent="."]
+script = ExtResource("3_7040f")
+
+[node name="bullet_timer" type="Timer" parent="bullet_spawn"]
+wait_time = 2.0
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="timeout" from="bullet_spawn/bullet_timer" to="bullet_spawn" method="_on_bullet_timer_timeout"]

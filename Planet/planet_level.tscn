@@ -1,0 +1,97 @@
+[gd_scene load_steps=17 format=3 uid="uid://bi16iyfo3yx4e"]
+
+[ext_resource type="Script" path="res://Planet/m_planet_scene_manager.gd" id="1_wi246"]
+[ext_resource type="Shader" path="res://Planet/planet_wave.gdshader" id="1_xhn3h"]
+[ext_resource type="Texture2D" uid="uid://cda2vl2b1wrpn" path="res://Planet/base_texture.tres" id="2_j6wmu"]
+[ext_resource type="Texture2D" uid="uid://2jdrbtcb1lli" path="res://Planet/wave_texture.tres" id="3_44s1o"]
+[ext_resource type="Script" path="res://Planet/UvSphere.gd" id="4_f38gm"]
+[ext_resource type="PackedScene" uid="uid://cnjb7mb2dxn31" path="res://Enemies/UFO/UFO.glb" id="5_loawt"]
+[ext_resource type="PackedScene" uid="uid://cdq77svver7c0" path="res://Player/player.tscn" id="6_xrbg6"]
+[ext_resource type="PackedScene" uid="uid://bpu2fy6m0w77n" path="res://UI/player_ui.tscn" id="8_k6v7n"]
+[ext_resource type="Script" path="res://Enemies/enemy_spawner.gd" id="9_vwsqi"]
+[ext_resource type="Texture2D" uid="uid://cdn156mgdjr3m" path="res://Globals/Space_Background.png" id="10_bvce1"]
+[ext_resource type="Script" path="res://Weapon_Spawner/weapon_spawner.gd" id="11_iceut"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cmlmp"]
+render_priority = 0
+shader = ExtResource("1_xhn3h")
+shader_parameter/num_impacts = 0
+shader_parameter/radius = 1.0
+shader_parameter/outside_time = 0.0
+shader_parameter/e = 2.71828
+shader_parameter/dampening = 1.8
+shader_parameter/phase_shift = 0.0
+shader_parameter/frequency = 18.0
+shader_parameter/height = 0.13
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/point_size = null
+shader_parameter/roughness = null
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.0
+shader_parameter/metallic = null
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = null
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = null
+shader_parameter/texture_albedo = ExtResource("2_j6wmu")
+shader_parameter/texture_albedo2 = ExtResource("3_44s1o")
+
+[sub_resource type="SphereMesh" id="SphereMesh_hk8ae"]
+radius = 15.0
+height = 30.0
+radial_segments = 90
+rings = 90
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_xlq3j"]
+panorama = ExtResource("10_bvce1")
+
+[sub_resource type="Sky" id="Sky_dkcm2"]
+sky_material = SubResource("PanoramaSkyMaterial_xlq3j")
+
+[sub_resource type="Environment" id="Environment_1up47"]
+background_mode = 2
+background_energy_multiplier = 6.25
+sky = SubResource("Sky_dkcm2")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.22
+glow_enabled = true
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_wi246")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.796952, 0, 0.604043, 0, 1, 0, -0.604043, 0, 0.796952, 16.9971, -9.53674e-07, 15.8772)
+light_energy = 1.297
+light_bake_mode = 1
+
+[node name="Planet" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_cmlmp")
+mesh = SubResource("SphereMesh_hk8ae")
+skeleton = NodePath("")
+script = ExtResource("4_f38gm")
+
+[node name="UFO" parent="." instance=ExtResource("5_loawt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.00284, -4.76837e-07, 0.359719)
+
+[node name="player" parent="." instance=ExtResource("6_xrbg6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+
+[node name="CanvasLayer" parent="player" instance=ExtResource("8_k6v7n")]
+
+[node name="Enemy_Spawner" type="Node3D" parent="."]
+script = ExtResource("9_vwsqi")
+
+[node name="Spawn_Timer" type="Timer" parent="Enemy_Spawner"]
+autostart = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1up47")
+
+[node name="Test_Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 28.4325)
+
+[node name="Weapon_Spawner" type="Node3D" parent="."]
+script = ExtResource("11_iceut")
+
+[connection signal="timeout" from="Enemy_Spawner/Spawn_Timer" to="Enemy_Spawner" method="_on_timer_timeout"]
