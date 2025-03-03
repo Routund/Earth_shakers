@@ -135,8 +135,9 @@ func damage(value):
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
 	var parent = area.get_parent()
-	if parent.is_in_group("enemy_bullet"):
+	if area.is_in_group("enemy_bullet"):
 		damage(parent.damage)
+		parent.queue_free()
 	elif area.is_in_group("bullet"):
 		if (str(parent.name).split(" ")[2]) == str(name) or !Global.networking:
 			if parent.time - parent.timer.time_left < 0.1:
