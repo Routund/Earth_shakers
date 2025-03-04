@@ -36,7 +36,7 @@ func _on_timer_timeout():
 @rpc("any_peer","call_local")
 func delete_bullet():
 	$explosion/CollisionShape3D.disabled = false
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.2).timeout
 	queue_free()
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
@@ -55,7 +55,7 @@ func _on_explosion_body_entered(body: Node3D) -> void:
 		print("Multiplayer %s Name %s" % [multiplayer.get_unique_id(), int(str(body.name))])
 		if !Global.networking:
 			body.damage(damage)
-			body.launch()
+			body.damage(damage)
 			queue_free()
 		else:
 			body.damage.rpc_id(int(str(body.name)),damage)
