@@ -42,7 +42,7 @@ func _ready():
 		var new_id = str(name).to_int()
 		$MultiplayerSynchronizer.set_multiplayer_authority(new_id)
 		if new_id == multiplayer.get_unique_id():
-			var ui = load("res://UI/player_ui.tscn").instantiate()
+			var ui = load("res://UI/PlayerUI/player_ui.tscn").instantiate()
 			add_child(ui)
 			camera.current = true
 		else:

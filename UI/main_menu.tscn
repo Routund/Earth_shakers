@@ -35,14 +35,18 @@ offset_right = 1145.0
 offset_bottom = 639.0
 script = ExtResource("2_mgt06")
 
-[node name="VBOX" type="VBoxContainer" parent="CanvasLayer/Control/Server_Browser"]
-layout_mode = 0
-offset_top = 12.0
-offset_right = 970.0
-offset_bottom = 569.0
-
 [node name="Timer" type="Timer" parent="CanvasLayer/Control/Server_Browser"]
-wait_time = 3.488
+wait_time = 3.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/Server_Browser"]
+layout_mode = 2
+offset_right = 970.0
+offset_bottom = 568.0
+
+[node name="VBOX" type="VBoxContainer" parent="CanvasLayer/Control/Server_Browser/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
 layout_mode = 0

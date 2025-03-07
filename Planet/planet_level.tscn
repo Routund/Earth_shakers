@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://Planet/UvSphere.gd" id="4_f38gm"]
 [ext_resource type="PackedScene" uid="uid://cnjb7mb2dxn31" path="res://Enemies/UFO/UFO.glb" id="5_loawt"]
 [ext_resource type="PackedScene" uid="uid://cdq77svver7c0" path="res://Player/player.tscn" id="6_xrbg6"]
-[ext_resource type="PackedScene" uid="uid://bpu2fy6m0w77n" path="res://UI/player_ui.tscn" id="8_k6v7n"]
+[ext_resource type="PackedScene" uid="uid://bpu2fy6m0w77n" path="res://UI/PlayerUI/player_ui.tscn" id="8_k6v7n"]
 [ext_resource type="Script" path="res://Enemies/enemy_spawner.gd" id="9_vwsqi"]
 [ext_resource type="Texture2D" uid="uid://cdn156mgdjr3m" path="res://Globals/Space_Background.png" id="10_bvce1"]
 [ext_resource type="Script" path="res://Weapon_Spawner/weapon_spawner.gd" id="11_iceut"]

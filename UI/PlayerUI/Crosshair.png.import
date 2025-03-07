@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://y53j35p1dxd2"
-path="res://.godot/imported/health_bar_front_glass.png-327eae4c0d16566ce166649a7c300dcb.ctex"
+uid="uid://bnrpe2d7aqte0"
+path="res://.godot/imported/Crosshair.png-8e89f1a80cda8f8d28393bd440234612.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/health_bar_front_glass.png"
-dest_files=["res://.godot/imported/health_bar_front_glass.png-327eae4c0d16566ce166649a7c300dcb.ctex"]
+source_file="res://UI/PlayerUI/Crosshair.png"
+dest_files=["res://.godot/imported/Crosshair.png-8e89f1a80cda8f8d28393bd440234612.ctex"]
 
 [params]
 

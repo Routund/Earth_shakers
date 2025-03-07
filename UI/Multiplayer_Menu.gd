@@ -17,7 +17,7 @@ func _ready() -> void:
 	$HBoxContainer/Host.visible = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func peer_connected(id):
@@ -57,6 +57,16 @@ func _on_host_button_up() -> void:
 func _on_join_button_up() -> void:
 	var peer : ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 	peer.create_client(address,port)
+	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
+	$HBoxContainer/Start.visible = false
+	$HBoxContainer/Host.visible = false
+	$HBoxContainer/Leave.visible = true
+	multiplayer.set_multiplayer_peer(peer)
+	pass # Replace with function body.
+
+func join_to(ip):
+	var peer : ENetMultiplayerPeer = ENetMultiplayerPeer.new()
+	peer.create_client(ip,port)
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	$HBoxContainer/Start.visible = false
 	$HBoxContainer/Host.visible = false
