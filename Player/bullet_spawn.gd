@@ -7,6 +7,7 @@ var rocket = load('res://Player_Weapons/rpg_bullet.tscn')
 var instance
 var equipped = true
 signal shot(power : float)
+var shooting = false
 @onready var player = $"../../../.."
 
 var player_client = true
@@ -18,7 +19,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if !player_client:
+	if !player_client or shooting:
 		pass
 	else:
 		if Input.is_action_just_pressed('scroll'):
@@ -32,9 +33,10 @@ func _process(_delta: float) -> void:
 			
 		if Input.is_action_pressed("shoot") and not cooldown:
 			cooldown = true
+			$"..".get_node("AnimationPlayer").play("shoot")
 			if Global.client_gun == 0:
 				shoot_pistol.rpc()
-				$shoot_cooldown.start(0.1)
+				$shoot_cooldown.start(0.25)
 			elif Global.client_gun == 1:
 				shoot_shotgun.rpc(multiplayer.get_unique_id())
 				shot.emit(0.05)
@@ -43,12 +45,15 @@ func _process(_delta: float) -> void:
 				shoot_rpg.rpc(multiplayer.get_unique_id())
 				shot.emit(0.05)
 				$shoot_cooldown.start(1)
+			elif Global.client_gun == 3: #this is a sniper change the damage values for this
+				shoot_pistol.rpc()
+				$shoot_cooldown.start(2)
 
 
 func _on_scroll_timeout() -> void:
 	Global.client_gun -= (scrolltick-1)
 	scrolltick = 0
-	if Global.client_gun > 2:
+	if Global.client_gun > 3:
 		Global.client_gun = 0
 
 
@@ -56,7 +61,7 @@ func _on_scrolld_timeout() -> void:
 	Global.client_gun += (scrolltick-1)
 	scrolltick = 0
 	if Global.client_gun < 0:
-		Global.client_gun = 2
+		Global.client_gun = 3
 
 func _on_shoot_cooldown_timeout() -> void:
 	cooldown = false
@@ -73,9 +78,11 @@ func shoot_rpg(parent):
 
 @rpc("any_peer","call_local")
 func shoot_pistol():
-	$"../Bullet_cast".enabled = true
-	await get_tree().create_timer(0.1).timeout
-	$"../Bullet_cast".enabled = false
+	shooting = true
+	$"../../Bullet_cast".enabled = true
+	await get_tree().create_timer(0.5).timeout
+	$"../../Bullet_cast".enabled = false
+	shooting = false
 
 @rpc("any_peer","call_local")
 func shoot_shotgun(parent):

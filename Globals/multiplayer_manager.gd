@@ -4,7 +4,13 @@ var players = {}
 var bullet_id = 0
 
 @rpc("any_peer","call_local")
-func disconnect_all():
+func disconnect_all(): 
 	if multiplayer.is_server():
 		for i in MultiplayerManager.players.keys():
 			multiplayer.multiplayer_peer.disconnect_peer(i)
+		players = {}
+
+@rpc("any_peer","call_local")
+func disconnect_player(id):
+	multiplayer.multiplayer_peer.disconnect_peer(id)
+	players.erase(id)

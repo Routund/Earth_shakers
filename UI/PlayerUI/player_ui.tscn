@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://bpu2fy6m0w77n"]
 
-[ext_resource type="Shader" path="res://UI/crosshair.gdshader" id="1_obp01"]
-[ext_resource type="Texture2D" uid="uid://bnrpe2d7aqte0" path="res://UI/Crosshair.png" id="2_yd3dd"]
-[ext_resource type="Script" path="res://UI/health_bar.gd" id="3_l0dhm"]
-[ext_resource type="Texture2D" uid="uid://c1r4y5jkm1isu" path="res://UI/health_bar_back_glass.png" id="4_kd63n"]
-[ext_resource type="Shader" path="res://UI/health.gdshader" id="5_6xdqn"]
-[ext_resource type="Texture2D" uid="uid://c8qpeij0pydfr" path="res://UI/health_bar_back_health.png" id="6_pu5lb"]
-[ext_resource type="Texture2D" uid="uid://y53j35p1dxd2" path="res://UI/health_bar_front_glass.png" id="7_1dvjf"]
+[ext_resource type="Shader" path="res://UI/PlayerUI/crosshair.gdshader" id="1_obp01"]
+[ext_resource type="Texture2D" uid="uid://bnrpe2d7aqte0" path="res://UI/PlayerUI/Crosshair.png" id="2_yd3dd"]
+[ext_resource type="Script" path="res://UI/PlayerUI/health_bar.gd" id="3_l0dhm"]
+[ext_resource type="Texture2D" uid="uid://c1r4y5jkm1isu" path="res://UI/PlayerUI/health_bar_back_glass.png" id="4_kd63n"]
+[ext_resource type="Shader" path="res://UI/PlayerUI/health.gdshader" id="5_6xdqn"]
+[ext_resource type="Texture2D" uid="uid://c8qpeij0pydfr" path="res://UI/PlayerUI/health_bar_back_health.png" id="6_pu5lb"]
+[ext_resource type="Texture2D" uid="uid://y53j35p1dxd2" path="res://UI/PlayerUI/health_bar_front_glass.png" id="7_1dvjf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_logwr"]
 shader = ExtResource("1_obp01")

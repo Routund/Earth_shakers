@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://wloqstrc21j3"]
+[gd_scene load_steps=5 format=3 uid="uid://wloqstrc21j3"]
 
 [ext_resource type="Script" path="res://UI/Multiplayer_Menu.gd" id="1_cg6ly"]
+[ext_resource type="Script" path="res://UI/Server_Browser.gd" id="2_mgt06"]
+[ext_resource type="Texture2D" uid="uid://dpreqp71dim8b" path="res://UI/button_test.png" id="2_mvgh7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sf04c"]
+font_size = 30
+font_color = Color(0, 0, 0, 1)
 
 [node name="MainMenu" type="Node3D"]
 
@@ -13,28 +19,118 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_cg6ly")
 
+[node name="Name_input" type="LineEdit" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 9.0
+offset_right = 1144.0
+offset_bottom = 57.0
+placeholder_text = "Your Name"
+
+[node name="Server_Browser" type="Panel" parent="CanvasLayer/Control"]
+layout_mode = 2
+offset_left = 175.0
+offset_top = 70.0
+offset_right = 1145.0
+offset_bottom = 639.0
+script = ExtResource("2_mgt06")
+
+[node name="Timer" type="Timer" parent="CanvasLayer/Control/Server_Browser"]
+wait_time = 3.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/Server_Browser"]
+layout_mode = 2
+offset_right = 970.0
+offset_bottom = 568.0
+
+[node name="VBOX" type="VBoxContainer" parent="CanvasLayer/Control/Server_Browser/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
 [node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
 layout_mode = 0
-offset_right = 100.0
-offset_bottom = 263.0
+offset_left = 13.0
+offset_top = 69.0
+offset_right = 163.0
+offset_bottom = 381.0
 
-[node name="Host" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
+[node name="Host" type="TextureButton" parent="CanvasLayer/Control/HBoxContainer"]
+custom_minimum_size = Vector2(150, 75)
 layout_mode = 2
-text = "Host
+texture_normal = ExtResource("2_mvgh7")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/HBoxContainer/Host"]
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 0
+offset_left = -1.0
+offset_right = 149.0
+offset_bottom = 75.0
+text = "Host"
+label_settings = SubResource("LabelSettings_sf04c")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Join" type="TextureButton" parent="CanvasLayer/Control/HBoxContainer"]
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+texture_normal = ExtResource("2_mvgh7")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/HBoxContainer/Join"]
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 0
+offset_left = -1.0
+offset_right = 149.0
+offset_bottom = 75.0
+text = "Join
 "
+label_settings = SubResource("LabelSettings_sf04c")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Join" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-text = "Join"
-
-[node name="Start" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="Start" type="TextureButton" parent="CanvasLayer/Control/HBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(150, 75)
 layout_mode = 2
+texture_normal = ExtResource("2_mvgh7")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/HBoxContainer/Start"]
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 0
+offset_left = -1.0
+offset_right = 149.0
+offset_bottom = 75.0
 text = "Start"
+label_settings = SubResource("LabelSettings_sf04c")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Leave" type="TextureButton" parent="CanvasLayer/Control/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+texture_normal = ExtResource("2_mvgh7")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/HBoxContainer/Leave"]
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 0
+offset_left = -1.0
+offset_right = 149.0
+offset_bottom = 75.0
+text = "Leave"
+label_settings = SubResource("LabelSettings_sf04c")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="button_up" from="CanvasLayer/Control/HBoxContainer/Host" to="CanvasLayer/Control" method="_on_host_button_up"]
 [connection signal="button_up" from="CanvasLayer/Control/HBoxContainer/Join" to="CanvasLayer/Control" method="_on_join_button_up"]
 [connection signal="button_up" from="CanvasLayer/Control/HBoxContainer/Start" to="CanvasLayer/Control" method="_on_start_button_up"]
+[connection signal="button_up" from="CanvasLayer/Control/HBoxContainer/Leave" to="CanvasLayer/Control" method="_on_leave_button_up"]
