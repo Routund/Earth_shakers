@@ -3,6 +3,8 @@ extends Control
 @export var address = "127.0.0.1"
 @export var port = 4313
 
+@onready var Browser = $Server_Browser
+
 var scene
 
 # Called when the node enters the scene tree for the first time.
@@ -25,9 +27,7 @@ func peer_disconnected(id):
 	print("Player disconnected - " + str(id))
 	get_tree().root.remove_child(scene)
 	get_parent().visible = true
-	$HBoxContainer/Host.visible = true
-	$HBoxContainer/Join.visible = true
-	$HBoxContainer/Start.visible = false
+	get_tree().reload_current_scene()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	MultiplayerManager.players.clear()
 
@@ -47,23 +47,35 @@ func _on_host_button_up() -> void:
 		peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 		multiplayer.set_multiplayer_peer(peer)
 		$HBoxContainer/Join.visible = false
-	print("Server Created")
-	$HBoxContainer/Start.visible = true
-	send_player_info(multiplayer.get_unique_id(),"")
+		print("Server Created")
+		$HBoxContainer/Start.visible = true
+		$HBoxContainer/Leave.visible = true
+		send_player_info(multiplayer.get_unique_id(),"")
+		Browser.set_up_broadcast()
 	pass # Replace with function body.
-
 
 func _on_join_button_up() -> void:
 	var peer : ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 	peer.create_client(address,port)
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	$HBoxContainer/Start.visible = false
+	$HBoxContainer/Host.visible = false
+	$HBoxContainer/Leave.visible = true
 	multiplayer.set_multiplayer_peer(peer)
 	pass # Replace with function body.
 
+func _on_leave_button_up() -> void:
+	if (!multiplayer.is_server()):
+		MultiplayerManager.disconnect_player.rpc_id(1,multiplayer.get_unique_id())
+	else:
+		MultiplayerManager.disconnect_all()
+		multiplayer.multiplayer_peer.close()
+		peer_disconnected(1)
+	pass # Replace with function body.
 
 func _on_start_button_up() -> void:
 	start_multiplayer.rpc()
+	Browser.stop_broadcast()
 	pass # Replace with function body.
 
 @rpc("any_peer","call_local")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bi16iyfo3yx4e"]
+[gd_scene load_steps=19 format=3 uid="uid://bi16iyfo3yx4e"]
 
 [ext_resource type="Script" path="res://Planet/m_planet_scene_manager.gd" id="1_wi246"]
 [ext_resource type="Shader" path="res://Planet/planet_wave.gdshader" id="1_xhn3h"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://Enemies/enemy_spawner.gd" id="9_vwsqi"]
 [ext_resource type="Texture2D" uid="uid://cdn156mgdjr3m" path="res://Globals/Space_Background.png" id="10_bvce1"]
 [ext_resource type="Script" path="res://Weapon_Spawner/weapon_spawner.gd" id="11_iceut"]
+[ext_resource type="PackedScene" uid="uid://baefty37ua2kp" path="res://Enemies/Alien/Alien(T).glb" id="12_nf7ct"]
+[ext_resource type="PackedScene" uid="uid://dbutdljxxl0pp" path="res://Enemies/Alien/Hurricane Kick.fbx" id="13_njcy8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cmlmp"]
 render_priority = 0
@@ -93,5 +95,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 28.4325)
 
 [node name="Weapon_Spawner" type="Node3D" parent="."]
 script = ExtResource("11_iceut")
+
+[node name="Hurricane Kick" parent="." instance=ExtResource("13_njcy8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.1963, 0, -7.2774)
+
+[node name="Alien(T)" parent="." instance=ExtResource("12_nf7ct")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86259, 0, 15.1807)
 
 [connection signal="timeout" from="Enemy_Spawner/Spawn_Timer" to="Enemy_Spawner" method="_on_timer_timeout"]
