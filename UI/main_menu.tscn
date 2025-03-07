@@ -43,7 +43,6 @@ offset_bottom = 569.0
 
 [node name="Timer" type="Timer" parent="CanvasLayer/Control/Server_Browser"]
 wait_time = 3.488
-autostart = true
 
 [node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
 layout_mode = 0

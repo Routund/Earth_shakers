@@ -19,6 +19,7 @@ var room_info = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	set_up_listen()
 	broadcast_timer.connect('timeout',broadcast_time_out) 
 	pass # Replace with function body.
 
