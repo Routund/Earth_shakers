@@ -24,16 +24,16 @@ func _process(_delta: float) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		camera_locking = !camera_locking
 	
-	if shake!=0:
-		rotation.x = rotation_x_old + randf_range(-1,1) * shake
-		rotation.y = rotation_y_old + randf_range(-1,1) * shake
-	elif reset_flag:
-		rotation.x = rotation_x_old
-		rotation.y = rotation_y_old
-		rotation_x_old = 0
-		rotation_y_old = 0
-		reset_flag = false
-	transform.orthonormalized()
+	#if shake!=0:
+		#rotation.x = rotation_x_old + randf_range(-1,1) * shake
+		#rotation.y = rotation_y_old + randf_range(-1,1) * shake
+	#elif reset_flag:
+		#rotation.x = rotation_x_old
+		#rotation.y = rotation_y_old
+		#rotation_x_old = 0
+		#rotation_y_old = 0
+		#reset_flag = false
+	#transform.orthonormalized()
 	pass
 
 

@@ -4,6 +4,8 @@ extends CharacterBody3D
 const SPEED = 9.0
 const SENS = 0.0035
 
+var launch = false
+var rocket = false
 var gravitational_velocity : Vector3 = Vector3.ZERO
 var gravity_scale : float = 1.5
 var jump_velocity : Vector3 = Vector3.ZERO
@@ -61,7 +63,7 @@ func _physics_process(delta: float) -> void:
 		position_normalized = position.normalized()
 		
 		# If player isn't grounded, increase the amount of velocity due to gravity
-		if !grounded:
+		if !grounded and !launch:
 			if Input.is_action_just_pressed("ground_pound") and position.length() > 17.5:
 				ground_pounding = true
 				gravity_scale = 16
@@ -87,14 +89,14 @@ func _physics_process(delta: float) -> void:
 				else:
 					Planet.initiate_impact(position,0.1)
 		else:
-			# If player grounded, reset their position to be on top of the planet
-			var new_position = Gravity.check_ground(position + (gravitational_velocity + jump_velocity)*delta)[0]
-			
-			if (new_position.length() > 15.4 and wave_invincibility_timer.time_left == 0):
-				damage(5)
-				print("Shocked")
-				wave_invincibility_timer.start(0.5)
-			position = new_position
+				# If player grounded, reset their position to be on top of the planet
+				var new_position = Gravity.check_ground(position + (gravitational_velocity + jump_velocity)*delta)[0]
+				
+				if (new_position.length() > 15.4 and wave_invincibility_timer.time_left == 0):
+					damage(5,false)
+					print("Shocked")
+					wave_invincibility_timer.start(0.5)
+				position = new_position
 
 		transform = Gravity.rotate_object(position,transform,camera_yaw)
 		camera_yaw = 0
@@ -128,23 +130,29 @@ func reset_ground_pound_jump():
 	jump_scale = 7
 
 @rpc("any_peer","call_local")
-func damage(value):
+func damage(value,rocket):
 	if player_client:
+		if rocket:
+			launch = true
+			jump_velocity += position.normalized() * 7
+			grounded = false
+			$Timer.start(0.05)
 		$CanvasLayer/Health_Bar.change_health(value)
 
-func launch():
-	pass
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
 	var parent = area.get_parent()
 	if area.is_in_group("enemy_bullet"):
-		damage(parent.damage)
-		parent.queue_free()
+		damage(parent.damage,false)
 	elif area.is_in_group("bullet"):
 		if (str(parent.name).split(" ")[2]) == str(name) or !Global.networking:
 			if parent.time - parent.timer.time_left < 0.05:
 				return
-		damage.rpc_id(int(str(name)),parent.damage)
+		damage.rpc_id(int(str(name)),parent.damage,true)
 		parent.delete_bullet.rpc()
 			
 	pass # Replace with function body.
+
+
+func _on_timer_timeout() -> void:
+	launch = false
