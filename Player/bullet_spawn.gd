@@ -38,21 +38,24 @@ func _process(_delta: float) -> void:
 		if !scrolling:
 			if Input.is_action_pressed("shoot") and !cooldown and !ammo[Global.client_gun] <= 0:
 				$"..".get_node("AnimationPlayer").play("shoot")
-				if Global.client_gun == 0 and !maxammo[Global.client_gun] == 0:
+				if Global.client_gun == 0 and !maxammo[0] == 0:
 					shoot_pistol.rpc()
+					cooldown = true
 					$shoot_cooldown.start(0.25)
-				elif Global.client_gun == 1 and !maxammo[Global.client_gun] == 0:
+				elif Global.client_gun == 1 and !maxammo[1] == 0:
 					shoot_shotgun.rpc(multiplayer.get_unique_id())
 					shot.emit(0.05)
+					cooldown = true
 					$shoot_cooldown.start(0.75)
-				elif Global.client_gun == 2 and !maxammo[Global.client_gun] == 0: 
+				elif Global.client_gun == 2 and !maxammo[2] == 0: 
 					shoot_rpg.rpc(multiplayer.get_unique_id())
 					shot.emit(0.05)
+					cooldown = true
 					$shoot_cooldown.start(1)
-				elif Global.client_gun == 3 and !maxammo[Global.client_gun] == 0: #this is a sniper change the damage values for this
+				elif Global.client_gun == 3 and !maxammo[3] == 0: #this is a sniper change the damage values for this
 					shoot_pistol.rpc()
+					cooldown = true
 					$shoot_cooldown.start(2)
-				cooldown = true
 
 
 func _on_scroll_timeout() -> void:
@@ -114,7 +117,7 @@ func shoot_shotgun(parent):
 
 
 func _on_reload_timeout() -> void:
-	if !maxammo[Global.client_gun] == 0:
+	if !maxammo[Global.client_gun] == 0 and !scrolling:
 		if Global.client_gun == 0 :
 			ammo[Global.client_gun] = 30
 			maxammo[Global.client_gun] -= 30
