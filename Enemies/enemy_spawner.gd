@@ -4,18 +4,26 @@ var ufo = preload("res://Enemies/UFO/ufo.tscn")
 var ship = preload("res://Enemies/Ship/ship.tscn")
 var difficulty = 100
 var radius : float = 15
+var spread = 0.55
+
+@onready var player = get_parent().get_node("player")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	randomize()
+
+func generate_spawn():
+	var base_new : Vector3 = - player.position.normalized()
+	base_new.x += randf_range(-spread,spread)
+	base_new.y += randf_range(-spread,spread)
+	base_new.z += randf_range(-spread,spread)
+	
+	return(base_new)
+	
 
 func spawn_ufo():
-	var rng = RandomNumberGenerator.new()
 	var add_ufo = ufo.instantiate()
-	var xv = rng.randf_range(-1,1)
-	var yv = rng.randf_range(-1,1)
-	var zv = rng.randf_range(-1,1)
-	var selected_vect = Vector3(xv,yv,zv)
+	var selected_vect = generate_spawn()
 	add_ufo.position = selected_vect.normalized() * radius * 1.25 #1.25 is how far off the planet it is
 	add_child(add_ufo)
 
@@ -24,17 +32,14 @@ func _process(_delta: float) -> void:
 	pass
 
 func spawn_ship():
-	var rng = RandomNumberGenerator.new()
 	var add_ship = ship.instantiate()
-	var xv = rng.randf_range(-1,1)
-	var yv = rng.randf_range(-1,1)
-	var zv = rng.randf_range(-1,1)
-	var selected_vect = Vector3(xv,yv,zv)
+	var selected_vect = generate_spawn()
 	add_ship.position = selected_vect.normalized() * radius * 1.4 #1.15 is how far off the planet it is
-	
 	add_child(add_ship)
 
 func _on_timer_timeout() -> void:
-	spawn_ufo()
-	spawn_ship()
+	if Global.num_ufos < Global.max_ufos:
+		spawn_ufo()
+	if Global.num_ships < Global.max_ships:
+		spawn_ship()
 	$Spawn_Timer.start()

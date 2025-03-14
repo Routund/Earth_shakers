@@ -1,6 +1,6 @@
 extends Control
 
-@export var address = "127.0.0.1"
+@export var address = "192.168.1.237"
 @export var port = 4313
 
 @onready var Browser = $Server_Browser

@@ -7,6 +7,7 @@ var velocity = Vector3(0,0,0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Global.num_ships +=1
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,4 +29,5 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 func damage(value):
 	health -= value
 	if health <= 0:
+		Global.num_ships -=1
 		queue_free()

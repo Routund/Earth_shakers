@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://txex8r2k8fy0"]
+[gd_scene load_steps=10 format=3 uid="uid://txex8r2k8fy0"]
 
 [ext_resource type="Script" path="res://Enemies/UFO/ufo.gd" id="1_e0gmj"]
 [ext_resource type="PackedScene" uid="uid://cnjb7mb2dxn31" path="res://Enemies/UFO/UFO.glb" id="1_kmtnw"]
@@ -10,8 +10,86 @@ radius = 0.6
 height = 0.4
 radius = 1.0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ao4h7"]
+shading_mode = 0
+albedo_color = Color(0.40619, 0.921875, 0.219666, 1)
+grow_amount = 0.73
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0lelf"]
+resource_local_to_scene = true
+lightmap_size_hint = Vector2i(4, 8)
+material = SubResource("StandardMaterial3D_ao4h7")
+top_radius = 0.0
+bottom_radius = 0.0
+height = 0.9
+radial_segments = 32
+rings = 0
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="Animation" id="Animation_umm80"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tractor_Beam:mesh:bottom_radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Tractor_Beam:mesh:top_radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_r5ly3"]
+resource_name = "beam"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tractor_Beam:mesh:bottom_radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.733333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.18, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Tractor_Beam:mesh:top_radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.733333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.18, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jvijn"]
+_data = {
+"RESET": SubResource("Animation_umm80"),
+"beam": SubResource("Animation_r5ly3")
+}
+
 [node name="UFO" type="Node3D"]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, 0, 0, 0)
 script = ExtResource("1_e0gmj")
 
 [node name="UFO" parent="." instance=ExtResource("1_kmtnw")]
@@ -28,7 +106,26 @@ transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.03, 0)
 shape = SubResource("CylinderShape3D_ddwoe")
 
 [node name="Despawn" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 14.0
 autostart = true
 
+[node name="Make_Alien" type="Timer" parent="."]
+wait_time = 9.0
+autostart = true
+
+[node name="Spawn_Alien" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="Tractor_Beam" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.477565, 0)
+mesh = SubResource("CylinderMesh_0lelf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jvijn")
+}
+
 [connection signal="area_entered" from="Area3Dufo" to="." method="_on_area_3_dufo_area_entered"]
+[connection signal="timeout" from="Make_Alien" to="." method="_on_make_alien_timeout"]
+[connection signal="timeout" from="Spawn_Alien" to="." method="_on_spawn_alien_timeout"]

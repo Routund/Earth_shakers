@@ -5,9 +5,9 @@
 [sub_resource type="SphereMesh" id="SphereMesh_6riti"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_stuqy"]
-albedo_color = Color(0.909503, 0.52648, 3.85046e-07, 1)
+albedo_color = Color(0.627451, 0.517647, 0.6, 1)
 emission_enabled = true
-emission = Color(0.843336, 0.322316, 0.114, 1)
+emission = Color(0.843137, 0.113725, 0.745098, 1)
 emission_energy_multiplier = 5.28
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_oydvu"]

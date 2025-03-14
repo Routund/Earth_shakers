@@ -8,9 +8,9 @@ bottom_radius = 0.025
 height = 0.25
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_os8yo"]
-albedo_color = Color(0.909503, 0.52648, 3.85046e-07, 1)
+albedo_color = Color(0.628906, 0.518356, 0.598678, 1)
 emission_enabled = true
-emission = Color(0.843336, 0.322316, 0.114, 1)
+emission = Color(0.843336, 0.114, 0.746471, 1)
 emission_energy_multiplier = 5.28
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_6bnh4"]

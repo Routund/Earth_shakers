@@ -97,9 +97,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 28.4325)
 script = ExtResource("11_iceut")
 
 [node name="Hurricane Kick" parent="." instance=ExtResource("13_njcy8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.1963, 0, -7.2774)
+transform = Transform3D(0.518782, 0.839762, -0.160203, -0.802375, 0.542955, 0.247778, 0.295058, 0, 0.955479, 26.5872, 0, -12.1993)
 
 [node name="Alien(T)" parent="." instance=ExtResource("12_nf7ct")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86259, 0, 15.1807)
+transform = Transform3D(-0.627278, 0.0763926, -0.775039, -0.331135, 0.874578, 0.354208, 0.704891, 0.47883, -0.523307, 1.86259, 0, 27.2288)
 
 [connection signal="timeout" from="Enemy_Spawner/Spawn_Timer" to="Enemy_Spawner" method="_on_timer_timeout"]

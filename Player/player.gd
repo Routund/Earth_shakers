@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 
-const SPEED = 9.0
+const SPEED = 25.0
 const SENS = 0.0035
 
 var launch = false

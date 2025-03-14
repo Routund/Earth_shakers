@@ -3,7 +3,7 @@ shader_type spatial;
 render_mode cull_disabled, depth_prepass_alpha, unshaded;
 
 varying float y_position;
-const vec3 blueishness = vec3(0.1,0.35,0.8);
+const vec3 blueishness = vec3(1,0.10,0.7);
 
 void vertex() {
 	y_position = VERTEX.y/4.0 - 0.2;
