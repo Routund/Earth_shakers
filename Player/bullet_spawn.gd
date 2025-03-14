@@ -25,6 +25,9 @@ func _process(_delta: float) -> void:
 	if !player_client or shooting:
 		pass
 	else:
+		if Input.is_action_just_pressed('reload'):
+			ammo[Global.client_gun] = 0
+			$reload.start(2)
 		if Input.is_action_just_pressed('scroll'):
 			scrolltick += 1
 			Global.client_gun += 1
