@@ -46,7 +46,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 			body.damage(damage)
 			queue_free()
 		else:
-			body.damage.rpc_id(int(str(body.name)),damage)
+			body.damage.rpc_id(int(str(body.name)),5)
 			delete_bullet.rpc()
 #
 #
@@ -58,6 +58,5 @@ func _on_explosion_body_entered(body: Node3D) -> void:
 			body.damage(damage)
 			queue_free()
 		else:
-			body.damage.rpc_id(int(str(body.name)),damage)
-			body.launch()
+			body.damage.rpc_id(int(str(body.name)),5)
 			delete_bullet.rpc()
