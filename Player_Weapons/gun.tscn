@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://ddue75lsffifg"]
+[gd_scene load_steps=7 format=3 uid="uid://ddue75lsffifg"]
 
 [ext_resource type="Script" path="res://Player_Weapons/gun.gd" id="1_jphoy"]
 [ext_resource type="PackedScene" uid="uid://wh61ihr14u7f" path="res://Player_Weapons/Snubnose.glb" id="1_qh1ua"]
 [ext_resource type="PackedScene" uid="uid://70ct3hxhgyfv" path="res://Player_Weapons/grenadelauncher.glb" id="2_sxisy"]
-[ext_resource type="PackedScene" uid="uid://rwg26d5h7aft" path="res://Player_Weapons/THEBOSS2.glb" id="4_sh4ph"]
 
 [sub_resource type="Animation" id="Animation_atheq"]
 length = 0.001
@@ -62,8 +61,5 @@ libraries = {
 
 [node name="grenadelauncher" parent="." instance=ExtResource("2_sxisy")]
 transform = Transform3D(-8.74228e-09, 0, 0.2, 0, 0.2, 0, -0.2, 0, -8.74228e-09, 0, 0.182727, 0.175312)
-
-[node name="THEBOSS2" parent="." instance=ExtResource("4_sh4ph")]
-transform = Transform3D(-0.247756, -0.000714757, -0.0334105, 0.000478734, 0.249841, -0.00889497, 0.0334147, -0.00887912, -0.247598, -0.0479844, -0.114243, 0.18558)
 
 [editable path="Snubnose"]
