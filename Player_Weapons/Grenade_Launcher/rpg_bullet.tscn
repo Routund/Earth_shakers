@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bxwc7tx3sskag"]
 
-[ext_resource type="Script" path="res://Player_Weapons/rpg_bullet.gd" id="1_ipgo7"]
+[ext_resource type="Script" path="res://Player_Weapons/Grenade_Launcher/rpg_bullet.gd" id="1_ipgo7"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_6riti"]
 

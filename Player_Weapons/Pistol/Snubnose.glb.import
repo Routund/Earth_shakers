@@ -3,12 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://kdr5ra0hgo18"
-valid=false
+uid="uid://wh61ihr14u7f"
+path="res://.godot/imported/Snubnose.glb-caab92b80345c341ce6124fdfa366bcf.scn"
 
 [deps]
 
-source_file="res://Player_Weapons/Snubnose.gltf"
+source_file="res://Player_Weapons/Pistol/Snubnose.glb"
+dest_files=["res://.godot/imported/Snubnose.glb-caab92b80345c341ce6124fdfa366bcf.scn"]
 
 [params]
 

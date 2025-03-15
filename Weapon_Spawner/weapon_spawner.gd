@@ -25,14 +25,14 @@ func create_new():
 		if num_pickups < 5:
 			num_pickups+=1
 			var new_position : Vector3 = Vector3(randf_range(-1,1),randf_range(-1,1),randf_range(-1,1)).normalized() * 15
-			var gun = randi_range(0,2)
+			var gun = randi_range(0,3)
 			place_new.rpc(new_position,gun)
 		spawn_timer.start(6.3)
 
 @rpc("call_local","any_peer")
 func place_new(pos,gun_id):
 	var new_pickup = pickup.instantiate()
-	add_child(new_pickup)
 	new_pickup.position = pos
 	new_pickup.gun = gun_id
+	add_child(new_pickup)
 	

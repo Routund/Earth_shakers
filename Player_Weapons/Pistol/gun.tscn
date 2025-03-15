@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddue75lsffifg"]
+
+[ext_resource type="Script" path="res://Player_Weapons/gun.gd" id="1_jphoy"]
+[ext_resource type="PackedScene" uid="uid://bd3msatn1b2ik" path="res://Player_Weapons/Pistol/snubnose2.tscn" id="3_nsf00"]
+[ext_resource type="PackedScene" uid="uid://70ct3hxhgyfv" path="res://Player_Weapons/Grenade_Launcher/grenadelauncher.glb" id="3_r4g3m"]
+
+[node name="gun" type="Node3D"]
+script = ExtResource("1_jphoy")
+
+[node name="grenadelauncher" parent="." instance=ExtResource("3_r4g3m")]
+
+[node name="Snubnose" parent="." instance=ExtResource("3_nsf00")]
+transform = Transform3D(2.38498e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, 2.38498e-09, 0, -0.145795, 0)

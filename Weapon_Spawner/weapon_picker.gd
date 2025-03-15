@@ -9,16 +9,19 @@ var gun = 0
 var model_child
 
 var guns = [
-	"res://Player_Weapons/snubnose2.tscn",
-	"res://Player_Weapons/snubnose2.tscn",
-	"res://Player_Weapons/snubnose2.tscn"
+	"res://Player_Weapons/Pistol/snubnose2.tscn",
+	"res://Player_Weapons/Pistol/snubnose2.tscn",
+	"res://Player_Weapons/Grenade_Launcher/grenadelauncher.tscn",
+	"res://Player_Weapons/Pistol/snubnose2.tscn"
 ]
+
+var sizes = [ 0.25, 0.25, 0.4, 0.25]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	randomize()
-	var model = load(guns[0]).instantiate()
-	model.scale = Vector3(0.25,0.25,0.25)
+	print(gun)
+	var model = load(guns[gun]).instantiate()
+	model.scale = Vector3(sizes[gun],sizes[gun],sizes[gun])
 	model.position.y += 1.0
 	add_child(model)
 	model_child = get_child(2)
@@ -48,6 +51,7 @@ func _on_static_body_3d_area_entered(area: Area3D) -> void:
 
 @rpc("any_peer","call_local")
 func delete_pickup(player_id):
-	if multiplayer.get_unique_id() == player_id:
+	if multiplayer.get_unique_id() == player_id or !Global.networking:
+		get_parent().num_pickups -= 1
 		Global.client_gun = gun
 	queue_free()

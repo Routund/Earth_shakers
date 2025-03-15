@@ -3,15 +3,24 @@ extends Node3D
 var scrolling = false
 var cooldown = false
 var scrolltick = 0
-var bullet = load("res://Player_Weapons/bullet.tscn")
-var rocket = load('res://Player_Weapons/rpg_bullet.tscn')
+
+var bullet = load("res://Player_Weapons/Pistol/bullet.tscn")
+var rocket = load("res://Player_Weapons/Grenade_Launcher/rpg_bullet.tscn")
 var instance
+
 var equipped = true
 signal shot(power : float)
 var shooting = false
 var ammo = [30,10,12,6]
 var maxammo = [90,30,36,18]
-@onready var player = $"../../../.."
+@onready var player = $"../../.."
+
+@onready var guns = [
+	get_node("Shotgun/Snubnose"),
+	get_node("Shotgun/Snubnose"),
+	get_node("RPG/Grenadelauncher"),
+	get_node("Shotgun/Snubnose"),
+	]
 
 var player_client = true
 
@@ -28,53 +37,48 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_pressed('reload'):
 			ammo[Global.client_gun] = 0
 			$reload.start(2)
-		if Input.is_action_just_pressed('scroll'):
-			scrolltick += 1
-			Global.client_gun += 1
+		if Input.is_action_just_pressed('scroll') and !scrolling:
 			scrolling = true
-			$scroll.start(0.2)
-		if Input.is_action_just_pressed('scrolld'):
-			scrolltick += 1
-			Global.client_gun -= 1
+			change_gun(1)
+			print(Global.client_gun)
+			$scroll.start(0.02)
+		if Input.is_action_just_pressed('scrolld') and !scrolling:
 			scrolling = true
-			$scrolld.start(0.2)
+			change_gun(-1)
+			print(Global.client_gun)
+			$scrolld.start(0.02)
+
 		if !scrolling:
 			if Input.is_action_pressed("shoot") and !cooldown and !ammo[Global.client_gun] <= 0:
-				$"..".get_node("AnimationPlayer").play("shoot")
+				guns[Global.client_gun].get_node("AnimationPlayer").play("shoot")
+				print("Shootable")
+				cooldown = true
 				if Global.client_gun == 0 and !maxammo[0] == 0:
 					shoot_pistol.rpc()
-					cooldown = true
-					$shoot_cooldown.start(0.25)
+					$shoot_cooldown.start(0.36)
 				elif Global.client_gun == 1 and !maxammo[1] == 0:
 					shoot_shotgun.rpc(multiplayer.get_unique_id())
 					shot.emit(0.05)
-					cooldown = true
 					$shoot_cooldown.start(0.75)
 				elif Global.client_gun == 2 and !maxammo[2] == 0: 
 					shoot_rpg.rpc(multiplayer.get_unique_id())
 					shot.emit(0.05)
-					cooldown = true
-					$shoot_cooldown.start(1)
+					$shoot_cooldown.start(1.1)
 				elif Global.client_gun == 3 and !maxammo[3] == 0: #this is a sniper change the damage values for this
-					shoot_pistol.rpc()
-					cooldown = true
 					$shoot_cooldown.start(2)
+
+func change_gun(change):
+	guns[Global.client_gun].visible = false
+	Global.client_gun += change
+	if Global.client_gun < 0:
+		Global.client_gun = 3
+	elif Global.client_gun > 3:
+		Global.client_gun = 0
+	guns[Global.client_gun].visible = true
 
 
 func _on_scroll_timeout() -> void:
-	Global.client_gun -= (scrolltick-1)
-	scrolltick = 0
 	scrolling = false
-	if Global.client_gun > 3:
-		Global.client_gun = 0
-
-
-func _on_scrolld_timeout() -> void:
-	Global.client_gun += (scrolltick-1)
-	scrolltick = 0
-	scrolling = false
-	if Global.client_gun < 0:
-		Global.client_gun = 3
 
 func _on_shoot_cooldown_timeout() -> void:
 	cooldown = false
@@ -84,7 +88,7 @@ func shoot_rpg(parent):
 	ammo[Global.client_gun] -= 1
 	instance = rocket.instantiate()
 	instance.transform = global_transform
-	instance.position = global_position
+	instance.position = $"shotgun spawn".global_position
 	instance.gravity_velocity = player.velocity
 	instance.name = "bullet %s %s" % [MultiplayerManager.bullet_id, parent]
 	MultiplayerManager.bullet_id +=1
@@ -96,9 +100,10 @@ func shoot_rpg(parent):
 func shoot_pistol():
 	ammo[Global.client_gun] -= 1
 	shooting = true
-	$"../../Bullet_cast".enabled = true
+	$"Bullet_cast".damage = 5
+	$"Bullet_cast".enabled = true
 	await get_tree().create_timer(0.5).timeout
-	$"../../Bullet_cast".enabled = false
+	$"Bullet_cast".enabled = false
 	shooting = false
 	if ammo[Global.client_gun] <= 0:
 		$reload.start(2)
@@ -111,10 +116,22 @@ func shoot_shotgun(parent):
 		instance = bullet.instantiate()
 		instance.transform = global_transform
 		instance.rotation += Vector3(deg_to_rad(randf_range(-3,3)),deg_to_rad(randf_range(-3,3)),deg_to_rad(randf_range(-3,3)))
-		instance.position = $"../../shotgun spawn".global_position
+		instance.position = $"shotgun spawn".global_position
 		instance.name = "bullet %s %s" % [MultiplayerManager.bullet_id,parent]
 		MultiplayerManager.bullet_id +=1
 		player.get_parent().add_child(instance)
+	if ammo[Global.client_gun] <= 0:
+		$reload.start(2)
+
+@rpc("any_peer","call_local")
+func shoot_rifle():
+	ammo[Global.client_gun] -= 1
+	shooting = true
+	$"Bullet_cast".damage = 15
+	$"Bullet_cast".enabled = true
+	await get_tree().create_timer(0.5).timeout
+	$"Bullet_cast".enabled = false
+	shooting = false
 	if ammo[Global.client_gun] <= 0:
 		$reload.start(2)
 
@@ -133,3 +150,8 @@ func _on_reload_timeout() -> void:
 		elif Global.client_gun == 3:
 			ammo[Global.client_gun] = 6
 			maxammo[Global.client_gun] -= 6
+
+
+func _on_scrolld_timeout() -> void:
+	scrolling = false
+	pass # Replace with function body.

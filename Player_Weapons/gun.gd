@@ -8,10 +8,4 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if !$bullet_spawn.scrolling:
-		if Global.client_gun == 2:
-			$Snubnose.visible = false
-			$grenadelauncher.visible = true
-		else:
-			$Snubnose.visible = true
-			$grenadelauncher.visible = false
+	pass

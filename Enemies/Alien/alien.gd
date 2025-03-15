@@ -19,11 +19,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	transform = Gravity.rotate_object(position, transform)
-	pass
-
-func _exit_tree() -> void:
-	queue_free()
-
+	
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	$AnimationPlayer.play("mixamo_com")

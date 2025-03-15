@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://70ct3hxhgyfv"
-path="res://.godot/imported/grenadelauncher.glb-7f8aabaf89aa714dd1437660669c7587.scn"
+path="res://.godot/imported/grenadelauncher.glb-9e44609ddf12ff989e1f01bbee40bda5.scn"
 
 [deps]
 
-source_file="res://Player_Weapons/grenadelauncher.glb"
-dest_files=["res://.godot/imported/grenadelauncher.glb-7f8aabaf89aa714dd1437660669c7587.scn"]
+source_file="res://Player_Weapons/Grenade_Launcher/grenadelauncher.glb"
+dest_files=["res://.godot/imported/grenadelauncher.glb-9e44609ddf12ff989e1f01bbee40bda5.scn"]
 
 [params]
 

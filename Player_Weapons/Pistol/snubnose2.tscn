@@ -1,0 +1,103 @@
+[gd_scene load_steps=5 format=3 uid="uid://bd3msatn1b2ik"]
+
+[ext_resource type="PackedScene" uid="uid://wh61ihr14u7f" path="res://Player_Weapons/Pistol/Snubnose.glb" id="1_qmc7s"]
+
+[sub_resource type="Animation" id="Animation_j27xk"]
+resource_name = "shoot"
+length = 0.35
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.01, 1, 0, 0, 0.2, 0.35, 1, 0, 0, 0)
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.01, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.21293, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_sxqle"]
+resource_name = "equip"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_swena"]
+_data = {
+"equip": SubResource("Animation_sxqle"),
+"shoot": SubResource("Animation_j27xk")
+}
+
+[node name="Snubnose" instance=ExtResource("1_qmc7s")]
+
+[node name="Hammer" parent="." index="0"]
+transform = Transform3D(0.0528938, 0.998456, -0.0169563, -0.998552, 0.0530506, 0.00893126, 0.00981701, 0.0164593, 0.999816, -0.0791678, 1.09098, 0.746236)
+
+[node name="Trigger" parent="." index="1"]
+transform = Transform3D(0.00800098, 0.151031, -0.00256489, -0.151046, 0.00802469, 0.00135099, 0.00148497, 0.00248971, 0.151237, -0.03687, 0.524735, 0.0054723)
+
+[node name="Chamber" parent="." index="2"]
+transform = Transform3D(0.471764, 0.00968331, -0.024992, 0.025066, -0.0051001, 0.471809, 0.00777724, -0.570948, -0.00463839, -0.0714255, 1.347, -0.454)
+
+[node name="Empty" parent="." index="3"]
+transform = Transform3D(-1.19209e-07, 1, 0, -8.9407e-08, 0, -1, -1, -8.9407e-08, 5.96046e-08, -0.0613171, 0, -1.10564)
+
+[node name="Empty_001" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.80139, 0, -1.10564)
+
+[node name="Cylinder" parent="." index="5"]
+transform = Transform3D(0.1921, 0.0109909, -0.0101766, 0.0102067, -0.00578887, 0.192118, 0.00316685, -0.648047, -0.00188875, -0.0658623, 1.61799, -1.78742)
+
+[node name="Cylinder_001" parent="." index="6"]
+transform = Transform3D(0.0833594, -0.00762072, 0.00441601, 0.00442909, 0.00401407, -0.0833674, 0.00137422, 0.449333, 0.00081965, -0.056403, 1.3548, -1.51295)
+
+[node name="Cylinder_002" parent="." index="7"]
+transform = Transform3D(0.14073, -0.00368753, 0.00745525, 0.00747734, 0.00194234, -0.140744, 0.00232, 0.217424, 0.00138376, -0.046071, 1.35125, -2.12824)
+
+[node name="Plane" parent="." index="8"]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, -0.035997, 0.518833, -0.0284321)
+
+[node name="Plane_001" parent="." index="9"]
+transform = Transform3D(0.0528938, 0.998456, -0.0169563, -0.998552, 0.0530506, 0.00893126, 0.00981701, 0.0164593, 0.999816, -0.028869, 1.03172, -2.11384)
+
+[node name="Cylinder_003" parent="." index="10"]
+transform = Transform3D(-0.0985074, -0.00968914, 0.00521848, -0.00523395, 0.00510324, -0.0985168, -0.00162394, 0.571292, 0.000968537, -0.0957651, 1.62834, -0.458319)
+
+[node name="Cylinder_004" parent="." index="11"]
+transform = Transform3D(-0.0985074, -0.00968914, 0.00521848, -0.00523395, 0.00510324, -0.0985168, -0.00162394, 0.571292, 0.000968537, -0.0654884, 1.05677, -0.4527)
+
+[node name="Cylinder_005" parent="." index="12"]
+transform = Transform3D(-0.053773, -0.00968871, -0.0827007, 0.0827011, 0.00510321, -0.0537911, -0.0016507, 0.571292, -0.000922043, -0.320534, 1.18651, -0.458184)
+
+[node name="Cylinder_006" parent="." index="13"]
+transform = Transform3D(-0.053773, -0.00968871, -0.0827007, 0.0827011, 0.00510321, -0.0537911, -0.0016507, 0.571292, -0.000922043, 0.15928, 1.4986, -0.452835)
+
+[node name="Cylinder_007" parent="." index="14"]
+transform = Transform3D(0.0447344, -0.00968891, -0.0879191, 0.087935, 0.00510312, 0.0447257, -2.68095e-05, 0.571292, -0.00189059, 0.174418, 1.21281, -0.450025)
+
+[node name="Cylinder_008" parent="." index="15"]
+transform = Transform3D(0.0447344, -0.00968891, -0.0879191, 0.087935, 0.00510312, 0.0447257, -2.68095e-05, 0.571292, -0.00189059, -0.335672, 1.4723, -0.460994)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="16"]
+libraries = {
+"": SubResource("AnimationLibrary_swena")
+}

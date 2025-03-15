@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cdq77svver7c0"]
+[gd_scene load_steps=10 format=3 uid="uid://cdq77svver7c0"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_5rkx4"]
 [ext_resource type="Script" path="res://Player/player_camera.gd" id="2_af3ny"]
-[ext_resource type="PackedScene" uid="uid://ddue75lsffifg" path="res://Player_Weapons/gun.tscn" id="2_qdq0g"]
 [ext_resource type="Script" path="res://Player/bullet_spawn.gd" id="3_q00kt"]
+[ext_resource type="PackedScene" uid="uid://ky1t8v12nxfg" path="res://Player_Weapons/Grenade_Launcher/grenadelauncher.tscn" id="4_8eb1c"]
 [ext_resource type="Script" path="res://Player_Weapons/bullet_cast.gd" id="5_83orv"]
+[ext_resource type="PackedScene" uid="uid://bd3msatn1b2ik" path="res://Player_Weapons/Pistol/snubnose2.tscn" id="6_kkbag"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qy76v"]
 
@@ -34,41 +35,46 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.565727, 0)
 rotation_edit_mode = 2
 script = ExtResource("2_af3ny")
 
-[node name="Camera_RayCast" type="RayCast3D" parent="head/Camera3D"]
-visible = false
-target_position = Vector3(0, 0, -1)
-hit_back_faces = false
-collide_with_bodies = false
-debug_shape_custom_color = Color(0.855536, 0.880725, 0.226302, 1)
-
-[node name="gun" parent="head/Camera3D" instance=ExtResource("2_qdq0g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125331, -0.454754, -0.80466)
-
-[node name="bullet_spawn" type="Node3D" parent="head/Camera3D/gun"]
-transform = Transform3D(0.994819, 0.0536849, 0.0863286, -0.0497132, 0.997633, -0.0475175, -0.0886752, 0.0429797, 0.995133, 0.0147198, 0.144258, -0.787795)
+[node name="Gun_Manager" type="Node3D" parent="head/Camera3D"]
 script = ExtResource("3_q00kt")
 
-[node name="scroll" type="Timer" parent="head/Camera3D/gun/bullet_spawn"]
-one_shot = true
-
-[node name="scrolld" type="Timer" parent="head/Camera3D/gun/bullet_spawn"]
-one_shot = true
-
-[node name="shoot_cooldown" type="Timer" parent="head/Camera3D/gun/bullet_spawn"]
-one_shot = true
-
-[node name="reload" type="Timer" parent="head/Camera3D/gun/bullet_spawn"]
-one_shot = true
-
-[node name="shotgun spawn" type="Node3D" parent="head/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.144528, -0.302064, -1.02064)
-
-[node name="Bullet_cast" type="RayCast3D" parent="head/Camera3D" groups=["bullet"]]
-transform = Transform3D(0.999986, 9.13848e-06, 0.00523596, 0, 0.999998, -0.00174533, -0.00523596, 0.0017453, 0.999985, 0.137759, -0.297536, -0.80466)
+[node name="Bullet_cast" type="RayCast3D" parent="head/Camera3D/Gun_Manager" groups=["bullet"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.262474, -0.297536, -0.80466)
 enabled = false
 target_position = Vector3(0, 0, -100)
 collide_with_areas = true
 script = ExtResource("5_83orv")
+
+[node name="scroll" type="Timer" parent="head/Camera3D/Gun_Manager"]
+one_shot = true
+
+[node name="scrolld" type="Timer" parent="head/Camera3D/Gun_Manager"]
+one_shot = true
+
+[node name="shoot_cooldown" type="Timer" parent="head/Camera3D/Gun_Manager"]
+one_shot = true
+
+[node name="reload" type="Timer" parent="head/Camera3D/Gun_Manager"]
+one_shot = true
+
+[node name="shotgun spawn" type="Node3D" parent="head/Camera3D/Gun_Manager"]
+transform = Transform3D(1, 4.65661e-10, -7.45058e-09, 1.39698e-09, 1, -3.72529e-09, 7.45058e-09, 0, 1, 0.232848, -0.245311, -1.13148)
+
+[node name="bullet_spawn" type="Node3D" parent="head/Camera3D/Gun_Manager"]
+transform = Transform3D(0.994819, 0.0536849, 0.0863286, -0.0497132, 0.997633, -0.0475175, -0.0886752, 0.0429797, 0.995133, 0.140051, -0.310496, -1.59246)
+
+[node name="RPG" type="Node3D" parent="head/Camera3D/Gun_Manager"]
+transform = Transform3D(-4.34639e-08, 4.64495e-09, 1, 0.106264, 0.994338, 0, -0.994338, 0.106264, -4.37114e-08, 0.235, -0.256, -0.525)
+
+[node name="Grenadelauncher" parent="head/Camera3D/Gun_Manager/RPG" instance=ExtResource("4_8eb1c")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+visible = false
+
+[node name="Shotgun" type="Node3D" parent="head/Camera3D/Gun_Manager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.265, -0.537, -0.655)
+
+[node name="Snubnose" parent="head/Camera3D/Gun_Manager/Shotgun" instance=ExtResource("6_kkbag")]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -86,9 +92,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_js81g")
 
 [connection signal="ground_pounded" from="." to="head/Camera3D" method="_on_player_ground_pounded"]
-[connection signal="shot" from="head/Camera3D/gun/bullet_spawn" to="head/Camera3D" method="_on_bullet_spawn_shot"]
-[connection signal="timeout" from="head/Camera3D/gun/bullet_spawn/scroll" to="head/Camera3D/gun/bullet_spawn" method="_on_scroll_timeout"]
-[connection signal="timeout" from="head/Camera3D/gun/bullet_spawn/scrolld" to="head/Camera3D/gun/bullet_spawn" method="_on_scrolld_timeout"]
-[connection signal="timeout" from="head/Camera3D/gun/bullet_spawn/shoot_cooldown" to="head/Camera3D/gun/bullet_spawn" method="_on_shoot_cooldown_timeout"]
-[connection signal="timeout" from="head/Camera3D/gun/bullet_spawn/reload" to="head/Camera3D/gun/bullet_spawn" method="_on_reload_timeout"]
+[connection signal="timeout" from="head/Camera3D/Gun_Manager/scroll" to="head/Camera3D/Gun_Manager" method="_on_scroll_timeout"]
+[connection signal="timeout" from="head/Camera3D/Gun_Manager/scroll" to="head/Camera3D/Gun_Manager/bullet_spawn" method="_on_scroll_timeout"]
+[connection signal="timeout" from="head/Camera3D/Gun_Manager/scrolld" to="head/Camera3D/Gun_Manager" method="_on_scrolld_timeout"]
+[connection signal="timeout" from="head/Camera3D/Gun_Manager/scrolld" to="head/Camera3D/Gun_Manager/bullet_spawn" method="_on_scrolld_timeout"]
+[connection signal="timeout" from="head/Camera3D/Gun_Manager/shoot_cooldown" to="head/Camera3D/Gun_Manager" method="_on_shoot_cooldown_timeout"]
+[connection signal="timeout" from="head/Camera3D/Gun_Manager/reload" to="head/Camera3D/Gun_Manager" method="_on_reload_timeout"]
+[connection signal="timeout" from="head/Camera3D/Gun_Manager/reload" to="head/Camera3D/Gun_Manager/bullet_spawn" method="_on_reload_timeout"]
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
