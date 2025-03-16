@@ -11,9 +11,12 @@ var instance
 var equipped = true
 signal shot(power : float)
 var shooting = false
-var ammo = [30,10,12,6]
-var maxammo = [90,30,36,18]
 @onready var player = $"../../.."
+
+var gun_ui
+var ammo = [0,0,0,0]
+var clips = [0,0,0,0]
+var clip_values = [1,1,1,1]
 
 @onready var guns = [
 	get_node("Shotgun/Snubnose"),
@@ -26,6 +29,8 @@ var player_client = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if player_client:
+		gun_ui = player.get_node("CanvasLayer").get_node("VBoxContainer")
 	pass # Replace with function body.
 
 
@@ -39,42 +44,72 @@ func _process(_delta: float) -> void:
 			$reload.start(2)
 		if Input.is_action_just_pressed('scroll') and !scrolling:
 			scrolling = true
-			change_gun(1)
-			print(Global.client_gun)
+			scroll_gun(-1)
 			$scroll.start(0.02)
 		if Input.is_action_just_pressed('scrolld') and !scrolling:
 			scrolling = true
-			change_gun(-1)
-			print(Global.client_gun)
+			scroll_gun(1)
 			$scrolld.start(0.02)
 
 		if !scrolling:
-			if Input.is_action_pressed("shoot") and !cooldown and !ammo[Global.client_gun] <= 0:
-				guns[Global.client_gun].get_node("AnimationPlayer").play("shoot")
-				print("Shootable")
-				cooldown = true
-				if Global.client_gun == 0 and !maxammo[0] == 0:
-					shoot_pistol.rpc()
+			if Input.is_action_pressed("shoot") and !cooldown and ammo[Global.client_gun] > 0:
+				if Global.client_gun == 0:
+					shoot_rifle.rpc()
 					$shoot_cooldown.start(0.36)
-				elif Global.client_gun == 1 and !maxammo[1] == 0:
+				elif Global.client_gun == 1:
 					shoot_shotgun.rpc(multiplayer.get_unique_id())
 					shot.emit(0.05)
 					$shoot_cooldown.start(0.75)
-				elif Global.client_gun == 2 and !maxammo[2] == 0: 
+				elif Global.client_gun == 2: 
 					shoot_rpg.rpc(multiplayer.get_unique_id())
 					shot.emit(0.05)
 					$shoot_cooldown.start(1.1)
-				elif Global.client_gun == 3 and !maxammo[3] == 0: #this is a sniper change the damage values for this
+				elif Global.client_gun == 3: #this is a sniper change the damage values for this
+					shot.emit(0.7)
+					shoot_sniper.rpc()
 					$shoot_cooldown.start(2)
+				guns[Global.client_gun].get_node("AnimationPlayer").play("shoot")
+				change_ammo(-1,Global.client_gun)
+				cooldown = true
 
-func change_gun(change):
+func scroll_gun(change):
+	var new = Global.client_gun 
+	new += change
+	while Global.client_gun != new:
+		
+		if new < 0:
+			new = 3
+		elif new > 3:
+			new = 0
+		
+		if ammo[new] > 0 or clips[new] > 0:
+			break
+		else:
+			new += change
+	
+	if Global.client_gun != new:
+		change_gun(new)
+
+func change_gun(new):
 	guns[Global.client_gun].visible = false
-	Global.client_gun += change
-	if Global.client_gun < 0:
-		Global.client_gun = 3
-	elif Global.client_gun > 3:
-		Global.client_gun = 0
-	guns[Global.client_gun].visible = true
+	Global.client_gun = new
+	guns[new].visible = true
+	guns[new].get_node("AnimationPlayer").play("equip")
+	gun_ui.switch_to(new)
+
+func change_ammo(change,gun):
+	if change == 1:
+		if ammo[gun] == 0 and clips[gun] == 0:
+			ammo[gun] += clip_values[gun]
+			change_gun(gun)
+		else:
+			clips[gun] += 1
+	else:
+		ammo[gun] -= 1
+		if ammo[gun] == 0 and clips[gun] == 0:
+			guns[Global.client_gun].visible = false
+			scroll_gun(-1)
+			gun_ui.remove(gun)
 
 
 func _on_scroll_timeout() -> void:
@@ -85,7 +120,6 @@ func _on_shoot_cooldown_timeout() -> void:
 
 @rpc("any_peer","call_local")
 func shoot_rpg(parent):
-	ammo[Global.client_gun] -= 1
 	instance = rocket.instantiate()
 	instance.transform = global_transform
 	instance.position = $"shotgun spawn".global_position
@@ -97,13 +131,12 @@ func shoot_rpg(parent):
 		$reload.start(2)
 
 @rpc("any_peer","call_local")
-func shoot_pistol():
-	ammo[Global.client_gun] -= 1
+func shoot_rifle():
 	shooting = true
-	$"Bullet_cast".damage = 5
-	$"Bullet_cast".enabled = true
+	$Bullet_cast.damage = 5
+	$Bullet_cast.enabled = true
 	await get_tree().create_timer(0.5).timeout
-	$"Bullet_cast".enabled = false
+	$Bullet_cast.enabled = false
 	shooting = false
 	if ammo[Global.client_gun] <= 0:
 		$reload.start(2)
@@ -111,7 +144,6 @@ func shoot_pistol():
 
 @rpc("any_peer","call_local")
 func shoot_shotgun(parent):
-	ammo[Global.client_gun] -= 1
 	for i in range(17):
 		instance = bullet.instantiate()
 		instance.transform = global_transform
@@ -124,32 +156,19 @@ func shoot_shotgun(parent):
 		$reload.start(2)
 
 @rpc("any_peer","call_local")
-func shoot_rifle():
-	ammo[Global.client_gun] -= 1
+func shoot_sniper():
 	shooting = true
-	$"Bullet_cast".damage = 15
-	$"Bullet_cast".enabled = true
+	$Bullet_cast.damage = 15
+	$Bullet_cast.enabled = true
 	await get_tree().create_timer(0.5).timeout
-	$"Bullet_cast".enabled = false
+	$Bullet_cast.enabled = false
 	shooting = false
-	if ammo[Global.client_gun] <= 0:
-		$reload.start(2)
 
 
 func _on_reload_timeout() -> void:
-	if !maxammo[Global.client_gun] == 0 and !scrolling:
-		if Global.client_gun == 0 :
-			ammo[Global.client_gun] = 30
-			maxammo[Global.client_gun] -= 30
-		elif Global.client_gun == 1:
-			ammo[Global.client_gun] = 10
-			maxammo[Global.client_gun] -= 10
-		elif Global.client_gun == 2:
-			ammo[Global.client_gun] = 12
-			maxammo[Global.client_gun] -= 12
-		elif Global.client_gun == 3:
-			ammo[Global.client_gun] = 6
-			maxammo[Global.client_gun] -= 6
+	if clips[Global.client_gun] > 0:
+		ammo[Global.client_gun] = clip_values[Global.client_gun]
+		clips[Global.client_gun] -= 1
 
 
 func _on_scrolld_timeout() -> void:

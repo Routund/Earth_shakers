@@ -23,6 +23,8 @@ signal ground_pounded(power : float)
 @onready var head = $head
 @onready var camera = $head/Camera3D
 @onready var Planet = get_parent().get_node("Planet")
+# Gun_manager referenced by weapon pickups, so it needs to be here
+@onready var gun_manager = $head/Camera3D/Gun_Manager
 
 var ground_pound_jump_increase_timer : Timer = Timer.new()
 var walk_shake_timer : Timer = Timer.new()
@@ -49,7 +51,7 @@ func _ready():
 			camera.current = true
 		else:
 			player_client = false
-			$head/Camera3D/gun/bullet_spawn.player_client = false
+			gun_manager.player_client = false
 
 func _unhandled_input(event):
 	if player_client:

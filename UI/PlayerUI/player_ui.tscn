@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bpu2fy6m0w77n"]
+[gd_scene load_steps=14 format=3 uid="uid://bpu2fy6m0w77n"]
 
 [ext_resource type="Shader" path="res://UI/PlayerUI/crosshair.gdshader" id="1_obp01"]
 [ext_resource type="Texture2D" uid="uid://bnrpe2d7aqte0" path="res://UI/PlayerUI/Crosshair.png" id="2_yd3dd"]
@@ -7,6 +7,10 @@
 [ext_resource type="Shader" path="res://UI/PlayerUI/health.gdshader" id="5_6xdqn"]
 [ext_resource type="Texture2D" uid="uid://c8qpeij0pydfr" path="res://UI/PlayerUI/health_bar_back_health.png" id="6_pu5lb"]
 [ext_resource type="Texture2D" uid="uid://y53j35p1dxd2" path="res://UI/PlayerUI/health_bar_front_glass.png" id="7_1dvjf"]
+[ext_resource type="Texture2D" uid="uid://b2evhm3cdgg7d" path="res://UI/gun_ui_background.png" id="8_1nsxe"]
+[ext_resource type="Script" path="res://UI/PlayerUI/gun_vbox.gd" id="8_hwomp"]
+[ext_resource type="Texture2D" uid="uid://dpe85w6qwrsqn" path="res://UI/Shotgun.png" id="9_2tvoq"]
+[ext_resource type="Texture2D" uid="uid://ci86ywvxyv3k4" path="res://UI/Grenade_Launcher.png" id="10_2edfo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_logwr"]
 shader = ExtResource("1_obp01")
@@ -14,7 +18,7 @@ shader_parameter/cross_hair_image = ExtResource("2_yd3dd")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5ewh0"]
 shader = ExtResource("5_6xdqn")
-shader_parameter/level = null
+shader_parameter/level = 0.66
 shader_parameter/health_meter = ExtResource("6_pu5lb")
 
 [node name="CanvasLayer" type="CanvasLayer"]
@@ -85,3 +89,61 @@ offset_top = 313.0
 offset_right = 87.0
 offset_bottom = 633.0
 texture = ExtResource("7_1dvjf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 922.0
+offset_top = 31.0
+offset_right = 1122.0
+offset_bottom = 331.0
+script = ExtResource("8_hwomp")
+
+[node name="Rifle" type="CenterContainer" parent="VBoxContainer"]
+modulate = Color(1, 1, 1, 0.498039)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Rifle"]
+layout_mode = 2
+texture = ExtResource("8_1nsxe")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/Rifle"]
+modulate = Color(0, 0.988281, 0.0386047, 1)
+layout_mode = 2
+texture = ExtResource("9_2tvoq")
+
+[node name="Shotgun" type="CenterContainer" parent="VBoxContainer"]
+modulate = Color(1, 1, 1, 0.498039)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Shotgun"]
+layout_mode = 2
+texture = ExtResource("8_1nsxe")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/Shotgun"]
+modulate = Color(0.660156, 0.048996, 0.048996, 1)
+layout_mode = 2
+texture = ExtResource("9_2tvoq")
+
+[node name="Grenade_Launcher" type="CenterContainer" parent="VBoxContainer"]
+modulate = Color(1, 1, 1, 0.498039)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Grenade_Launcher"]
+layout_mode = 2
+texture = ExtResource("8_1nsxe")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/Grenade_Launcher"]
+layout_mode = 2
+texture = ExtResource("10_2edfo")
+
+[node name="Sniper" type="CenterContainer" parent="VBoxContainer"]
+modulate = Color(1, 1, 1, 0.498039)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Sniper"]
+layout_mode = 2
+texture = ExtResource("8_1nsxe")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/Sniper"]
+modulate = Color(0.125, 0, 1, 1)
+layout_mode = 2
+texture = ExtResource("9_2tvoq")

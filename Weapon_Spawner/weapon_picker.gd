@@ -45,13 +45,14 @@ func _process(delta: float) -> void:
 
 func _on_static_body_3d_area_entered(area: Area3D) -> void:
 	if area.get_parent().is_in_group("Player"):
-		delete_pickup.rpc(int(str(area.get_parent().name)))
+		delete_pickup.rpc(int(str(area.get_parent().name)),area)
 		
 	pass # Replace with function body.
 
 @rpc("any_peer","call_local")
-func delete_pickup(player_id):
+func delete_pickup(player_id,area):
 	if multiplayer.get_unique_id() == player_id or !Global.networking:
 		get_parent().num_pickups -= 1
-		Global.client_gun = gun
+		area.get_parent().gun_manager.change_ammo(1,gun)
+		
 	queue_free()
